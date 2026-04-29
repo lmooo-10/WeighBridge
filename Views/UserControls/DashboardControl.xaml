@@ -1,0 +1,603 @@
+<UserControl x:Class="WeighBridge.Views.UserControls.DashboardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="{StaticResource ContentBgBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ═══ ROW 0 — Welcome card ═══ -->
+        <Border Grid.Row="0" Background="White" Padding="20,14"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Width="48" Height="48" CornerRadius="24" Margin="0,0,16,0"
+                        Background="{Binding CurrentUser.RoleBadgeColor}">
+                    <TextBlock Text="{Binding CurrentUser.Initials}" Foreground="White"
+                               FontSize="16" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock FontFamily="Segoe UI" FontSize="18" FontWeight="Bold" Foreground="#1A1F3A">
+                        <Run Text="Welcome back, "/>
+                        <Run Text="{Binding CurrentUser.FullName}"/>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <Border CornerRadius="4" Padding="8,3" Margin="0,0,10,0"
+                                Background="{Binding CurrentUser.RoleBadgeColor}">
+                            <TextBlock Text="{Binding CurrentUser.RoleDisplayName}"
+                                       Foreground="White" FontSize="11" FontWeight="SemiBold" FontFamily="Segoe UI"/>
+                        </Border>
+                        <TextBlock Text="{Binding CurrentUser.StationInfo}"
+                                   Foreground="#8A8E9B" FontSize="12" FontFamily="Segoe UI" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══ ROW 1 — Live ticker ═══ -->
+        <Border Grid.Row="1" Background="#1A1F3A" Height="36">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="#E8001D" Padding="12,0">
+                    <TextBlock Text="LIVE" Foreground="White" FontSize="11"
+                               FontWeight="Bold" FontFamily="Segoe UI" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Grid.Column="1" Foreground="#9DA3C0" FontSize="11" FontFamily="Segoe UI"
+                           VerticalAlignment="Center" Margin="16,0"
+                           Text="Algiers Terminal  47 ops today  ·  WB-01 Weight  28,450 kg — STABLE  ·  MSC AURORA  ETA Algiers 14:30  ·  Rotterdam  892 TEU · 98.4% on-time  ·  Santos, BR  Import surge +18%"/>
+            </Grid>
+        </Border>
+
+        <!-- ═══ ROW 2 — Scrollable content ═══ -->
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      CanContentScroll="False">
+            <StackPanel>
+
+                <!-- ═══ Stats cards ═══ -->
+                <UniformGrid Columns="4" Margin="20,16,20,0">
+                    <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                        <StackPanel>
+                            <TextBlock Text="TODAY'S OPS" Style="{StaticResource SectionHeaderStyle}"/>
+                            <TextBlock Text="47" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="+12%" Foreground="#2ECC71" FontSize="12" FontWeight="Bold" FontFamily="Segoe UI"/>
+                                <TextBlock Text=" vs yesterday" Foreground="#8A8E9B" FontSize="12" FontFamily="Segoe UI"/>
+                            </StackPanel>
+                            <ProgressBar Value="60" Maximum="100" Height="3" Background="#F0F2F8"
+                                 Foreground="#E8001D" Margin="0,10,0,0" BorderThickness="0"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                        <StackPanel>
+                            <TextBlock Text="IMPORT" Style="{StaticResource SectionHeaderStyle}"/>
+                            <TextBlock Text="29" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="+5%" Foreground="#2ECC71" FontSize="12" FontWeight="Bold" FontFamily="Segoe UI"/>
+                                <TextBlock Text=" vs yesterday" Foreground="#8A8E9B" FontSize="12" FontFamily="Segoe UI"/>
+                            </StackPanel>
+                            <ProgressBar Value="38" Maximum="100" Height="3" Background="#F0F2F8"
+                                 Foreground="#2D3561" Margin="0,10,0,0" BorderThickness="0"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                        <StackPanel>
+                            <TextBlock Text="GLOBAL PORTS" Style="{StaticResource SectionHeaderStyle}"/>
+                            <TextBlock Text="90" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
+                            <TextBlock Text="41 countries" Style="{StaticResource CardLabelStyle}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="UPTIME" Style="{StaticResource SectionHeaderStyle}"/>
+                            <TextBlock Text="99.8%" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
+                            <TextBlock Text="System reliability" Style="{StaticResource CardLabelStyle}"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- ═══════════════════════════════════════════════════════════════
+             CHARTS SECTION  (replaces old map/vessel area)
+        ═══════════════════════════════════════════════════════════════ -->
+                <Grid Margin="20,16,20,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ══════════════════════════════
+                 LEFT — Two stacked donut charts
+                 ══════════════════════════════ -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- ── DONUT 1 : Import vs Export ── -->
+                        <Border Grid.Row="0" Background="White" CornerRadius="10"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="16,14">
+                            <StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <Border Width="4" CornerRadius="2" Background="#E8001D" Margin="0,0,8,0"/>
+                                    <TextBlock Text="CONTENEURS PAR SENS" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#8A8E9B" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- Arc ring: center=(75,75) r=60 stroke=22 -->
+                                <!-- IMPORT 61% = 219.6° ≈ 220°
+                             Start: top = (75, 15)
+                             End at -90+220 = 130° → (75+60·cos130°, 75+60·sin130°)
+                                                   = (75−38.57, 75+45.96) = (36.4, 120.96) -->
+                                <!-- EXPORT 39% = 140° from (36.4,120.96) back to (75,15) -->
+                                <Grid Width="150" Height="150" HorizontalAlignment="Center">
+                                    <Canvas Width="150" Height="150">
+                                        <Ellipse Canvas.Left="15" Canvas.Top="15" Width="120" Height="120"
+                                         Stroke="#F0F2F8" StrokeThickness="22" Fill="Transparent"/>
+
+                                        <Path Stroke="#E8001D" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="75,15" IsClosed="False">
+                                                        <ArcSegment Point="36.4,120.96" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="True"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <Path Stroke="#2AA335" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="36.4,120.96" IsClosed="False">
+                                                        <ArcSegment Point="75,15" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="False"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <!-- Tiny white gap dots at segment joins -->
+                                        <Ellipse Canvas.Left="72" Canvas.Top="12" Width="6" Height="6" Fill="White"/>
+                                        <Ellipse Canvas.Left="33" Canvas.Top="118" Width="6" Height="6" Fill="White"/>
+                                    </Canvas>
+
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="1 247" FontFamily="Segoe UI" FontSize="18"
+                                           FontWeight="Bold" Foreground="#1A1F3A" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Total TEU" FontFamily="Segoe UI" FontSize="10"
+                                           Foreground="#8A8E9B" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Legend rows -->
+                                <Grid Margin="0,10,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="38"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Width="10" Height="10" Fill="#E8001D" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="Import" FontFamily="Segoe UI"
+                                       FontSize="12" Foreground="#1A1F3A" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="762 TEU " FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#1A1F3A" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="61%" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#E8001D" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="38"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Width="10" Height="10" Fill="#2AA335" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="Export" FontFamily="Segoe UI"
+                                       FontSize="12" Foreground="#1A1F3A" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="485 TEU " FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#1A1F3A" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="39%" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#2AA335" VerticalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- ── DONUT 2 : Container types ── -->
+                        <!-- Segments (from top, clockwise):
+                     20'Std  32% = 115.2° end=(129.4, 100.6)
+                     40'Std  35% = 126°   end=(22.5,  103.9)
+                     Reefer  18% = 64.8°  end=(26.4,   39.7)
+                     Dang    15% = 54°    end=(75,       15)  ✓ -->
+                        <Border Grid.Row="2" Background="White" CornerRadius="10"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="16,14">
+                            <StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <Border Width="4" CornerRadius="2" Background="#2D3561" Margin="0,0,8,0"/>
+                                    <TextBlock Text="TYPES DE CONTENEURS" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#8A8E9B" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <Grid Width="150" Height="150" HorizontalAlignment="Center">
+                                    <Canvas Width="150" Height="150">
+                                        <Ellipse Canvas.Left="15" Canvas.Top="15" Width="120" Height="120"
+                                         Stroke="#F0F2F8" StrokeThickness="22" Fill="Transparent"/>
+
+                                        <Path Stroke="#2A4EA3" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="75,15" IsClosed="False">
+                                                        <ArcSegment Point="129.4,100.6" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="False"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <Path Stroke="#E8001D" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="129.4,100.6" IsClosed="False">
+                                                        <ArcSegment Point="22.5,103.9" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="False"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <Path Stroke="#00B4D8" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="22.5,103.9" IsClosed="False">
+                                                        <ArcSegment Point="26.4,39.7" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="False"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <Path Stroke="#E67E22" StrokeThickness="22" Fill="Transparent">
+                                            <Path.Data>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="26.4,39.7" IsClosed="False">
+                                                        <ArcSegment Point="75,15" Size="60,60"
+                                                            SweepDirection="Clockwise" IsLargeArc="False"/>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </Path.Data>
+                                        </Path>
+
+                                        <!-- Gap dots -->
+                                        <Ellipse Canvas.Left="72"  Canvas.Top="12"  Width="5" Height="5" Fill="White"/>
+                                        <Ellipse Canvas.Left="126" Canvas.Top="98"  Width="5" Height="5" Fill="White"/>
+                                        <Ellipse Canvas.Left="19"  Canvas.Top="101" Width="5" Height="5" Fill="White"/>
+                                        <Ellipse Canvas.Left="23"  Canvas.Top="37"  Width="5" Height="5" Fill="White"/>
+                                    </Canvas>
+
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="4 types" FontFamily="Segoe UI" FontSize="14"
+                                           FontWeight="Bold" Foreground="#1A1F3A" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="conteneurs" FontFamily="Segoe UI" FontSize="10"
+                                           Foreground="#8A8E9B" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <UniformGrid Columns="2" Rows="2" Margin="0,8,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,3,4,3">
+                                        <Rectangle Width="10" Height="10" Fill="#2A4EA3" RadiusX="2" RadiusY="2"
+                                           Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <StackPanel>
+                                            <TextBlock Text="20' Std" FontFamily="Segoe UI" FontSize="11" Foreground="#1A1F3A"/>
+                                            <TextBlock Text="32%" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Foreground="#2A4EA3"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,3">
+                                        <Rectangle Width="10" Height="10" Fill="#E8001D" RadiusX="2" RadiusY="2"
+                                           Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <StackPanel>
+                                            <TextBlock Text="40' Std" FontFamily="Segoe UI" FontSize="11" Foreground="#1A1F3A"/>
+                                            <TextBlock Text="35%" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Foreground="#E8001D"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,3,4,3">
+                                        <Rectangle Width="10" Height="10" Fill="#00B4D8" RadiusX="2" RadiusY="2"
+                                           Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <StackPanel>
+                                            <TextBlock Text="Réfrigéré" FontFamily="Segoe UI" FontSize="11" Foreground="#1A1F3A"/>
+                                            <TextBlock Text="18%" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Foreground="#00B4D8"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,3">
+                                        <Rectangle Width="10" Height="10" Fill="#E67E22" RadiusX="2" RadiusY="2"
+                                           Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <StackPanel>
+                                            <TextBlock Text="Mat. Dang." FontFamily="Segoe UI" FontSize="11" Foreground="#1A1F3A"/>
+                                            <TextBlock Text="15%  (20')" FontFamily="Segoe UI" FontSize="10" FontWeight="Bold" Foreground="#E67E22"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </UniformGrid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- ═══════════════════════════════════════
+                 RIGHT — Bar chart + summary cards
+                 Bars use Grid star-columns for proportions:
+                 filled col = value*, empty col = (436-value)*
+                 (436 = max pair total: 40'Std import=256 + export=180)
+                 ═══════════════════════════════════════ -->
+                    <Border Grid.Column="2" Background="White" CornerRadius="10"
+                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="20,16">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header + legend -->
+                            <Grid Grid.Row="0" Margin="0,0,0,14">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Border Width="4" CornerRadius="2" Background="#E8001D" Margin="0,0,8,0"/>
+                                    <TextBlock Text="CONTENEURS PAR TYPE ET SENS" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="Bold" Foreground="#8A8E9B"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <Rectangle Width="12" Height="12" Fill="#E8001D" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Import" FontFamily="Segoe UI" FontSize="11" Foreground="#8A8E9B" Margin="0,0,14,0"/>
+                                    <Rectangle Width="12" Height="12" Fill="#2AA335" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Export" FontFamily="Segoe UI" FontSize="11" Foreground="#8A8E9B"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Bar groups -->
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <!-- ── 20' Standard  ↑198  ↓101 ── -->
+                                <Grid Grid.Row="0" Margin="0,6,0,6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="4"/>
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <TextBlock Text="20' Standard" FontFamily="Segoe UI" FontSize="12"
+                                           FontWeight="SemiBold" Foreground="#1A1F3A"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock Text="↑ 198   " FontFamily="Segoe UI" FontSize="11" Foreground="#E8001D" FontWeight="Bold"/>
+                                            <TextBlock Text="↓ 101" FontFamily="Segoe UI" FontSize="11" Foreground="#2AA335" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="198*"/>
+                                            <ColumnDefinition Width="238*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#E8001D"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="101*"/>
+                                            <ColumnDefinition Width="335*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#2AA335"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                </Grid>
+
+                                <!-- ── 40' Standard  ↑256  ↓180 ── -->
+                                <Grid Grid.Row="1" Margin="0,6,0,6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="4"/>
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <TextBlock Text="40' Standard" FontFamily="Segoe UI" FontSize="12"
+                                           FontWeight="SemiBold" Foreground="#1A1F3A"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock Text="↑ 256   " FontFamily="Segoe UI" FontSize="11" Foreground="#E8001D" FontWeight="Bold"/>
+                                            <TextBlock Text="↓ 180" FontFamily="Segoe UI" FontSize="11" Foreground="#2AA335" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="256*"/>
+                                            <ColumnDefinition Width="180*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#E8001D"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="180*"/>
+                                            <ColumnDefinition Width="256*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#2AA335"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                </Grid>
+
+                                <!-- ── Réfrigéré  ↑143  ↓81 ── -->
+                                <Grid Grid.Row="2" Margin="0,6,0,6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="4"/>
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <TextBlock Text="Réfrigéré (Reefer)" FontFamily="Segoe UI" FontSize="12"
+                                           FontWeight="SemiBold" Foreground="#1A1F3A"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock Text="↑ 143   " FontFamily="Segoe UI" FontSize="11" Foreground="#00B4D8" FontWeight="Bold"/>
+                                            <TextBlock Text="↓ 81" FontFamily="Segoe UI" FontSize="11" Foreground="#2A4EA3" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="143*"/>
+                                            <ColumnDefinition Width="293*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#00B4D8"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81*"/>
+                                            <ColumnDefinition Width="355*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#2A4EA3"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                </Grid>
+
+                                <!-- ── Matières Dangereuses (20' only)  ↑165  ↓123 ── -->
+                                <Grid Grid.Row="3" Margin="0,6,0,6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="4"/>
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Matières Dangereuses" FontFamily="Segoe UI"
+                                               FontSize="12" FontWeight="SemiBold" Foreground="#1A1F3A"/>
+                                            <Border CornerRadius="3" Background="#FFF3E0" Padding="5,1" Margin="8,0,0,0" VerticalAlignment="Center">
+                                                <TextBlock Text="20' seulement" FontFamily="Segoe UI"
+                                                   FontSize="9" Foreground="#E67E22" FontWeight="Bold"/>
+                                            </Border>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock Text="↑ 165   " FontFamily="Segoe UI" FontSize="11" Foreground="#E67E22" FontWeight="Bold"/>
+                                            <TextBlock Text="↓ 123" FontFamily="Segoe UI" FontSize="11" Foreground="#A0522D" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="165*"/>
+                                            <ColumnDefinition Width="271*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#E67E22"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="123*"/>
+                                            <ColumnDefinition Width="313*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" CornerRadius="3,0,0,3" Background="#A0522D"/>
+                                        <Border Grid.Column="1" CornerRadius="0,3,3,0" Background="#F0F2F8"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <!-- Divider -->
+                            <Border Grid.Row="2" Background="{StaticResource BorderBrush}" Height="1" Margin="0,6,0,10"/>
+
+                            <!-- Summary total cards -->
+                            <UniformGrid Grid.Row="3" Columns="4">
+
+                                <Border Margin="0,0,10,0" Background="#F8F9FF" CornerRadius="8" Padding="10,8">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                            <Rectangle Width="10" Height="10" Fill="#2A4EA3" RadiusX="2" RadiusY="2"
+                                               Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="20' STD" FontFamily="Segoe UI" FontSize="10"
+                                               FontWeight="Bold" Foreground="#8A8E9B"/>
+                                        </StackPanel>
+                                        <TextBlock Text="299" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
+                                        <TextBlock Text="TEU total" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <TextBlock Text="↑198  " FontFamily="Segoe UI" FontSize="10" Foreground="#E8001D" FontWeight="Bold"/>
+                                            <TextBlock Text="↓101"  FontFamily="Segoe UI" FontSize="10" Foreground="#2AA335" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Margin="0,0,10,0" Background="#F8F9FF" CornerRadius="8" Padding="10,8">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                            <Rectangle Width="10" Height="10" Fill="#E8001D" RadiusX="2" RadiusY="2"
+                                               Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="40' STD" FontFamily="Segoe UI" FontSize="10"
+                                               FontWeight="Bold" Foreground="#8A8E9B"/>
+                                        </StackPanel>
+                                        <TextBlock Text="436" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
+                                        <TextBlock Text="TEU total" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <TextBlock Text="↑256  " FontFamily="Segoe UI" FontSize="10" Foreground="#E8001D" FontWeight="Bold"/>
+                                            <TextBlock Text="↓180"  FontFamily="Segoe UI" FontSize="10" Foreground="#2AA335" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Margin="0,0,10,0" Background="#F0FBFF" CornerRadius="8" Padding="10,8">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                            <Rectangle Width="10" Height="10" Fill="#00B4D8" RadiusX="2" RadiusY="2"
+                                               Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="REEFER" FontFamily="Segoe UI" FontSize="10"
+                                               FontWeight="Bold" Foreground="#8A8E9B"/>
+                                        </StackPanel>
+                                        <TextBlock Text="224" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
+                                        <TextBlock Text="TEU total" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <TextBlock Text="↑143  " FontFamily="Segoe UI" FontSize="10" Foreground="#00B4D8" FontWeight="Bold"/>
+                                            <TextBlock Text="↓81"   FontFamily="Segoe UI" FontSize="10" Foreground="#2A4EA3" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Background="#FFF8F0" CornerRadius="8" Padding="10,8">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                            <Rectangle Width="10" Height="10" Fill="#E67E22" RadiusX="2" RadiusY="2"
+                                               Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="MAT. DANG." FontFamily="Segoe UI" FontSize="10"
+                                               FontWeight="Bold" Foreground="#8A8E9B"/>
+                                        </StackPanel>
+                                        <TextBlock Text="288" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
+                                        <TextBlock Text="TEU  (20' only)" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <TextBlock Text="↑165  " FontFamily="Segoe UI" FontSize="10" Foreground="#E67E22" FontWeight="Bold"/>
+                                            <TextBlock Text="↓123"  FontFamily="Segoe UI" FontSize="10" Foreground="#A0522D" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                            </UniformGrid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

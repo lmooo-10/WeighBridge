@@ -1,0 +1,194 @@
+<UserControl x:Class="WeighBridge.Views.UserControls.ExportsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            >
+
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="{StaticResource ContentBgBrush}" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- ── Heading ── -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="Data Exports" FontFamily="Segoe UI"
+                           FontSize="26" FontWeight="Bold" Foreground="#1A1F3A"/>
+                <TextBlock Text="Export weighbridge and VGM data in various formats"
+                           FontFamily="Segoe UI" FontSize="13" Foreground="#8A8E9B" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- ── Stats cards ── -->
+            <UniformGrid Grid.Row="1" Columns="3" Margin="0,0,0,20">
+                <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2D3561">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="⚖ " FontSize="14" Foreground="#8A8E9B"/>
+                            <TextBlock Text="Weighments Available" Style="{StaticResource CardLabelStyle}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding WeighmentsAvailable, Mode=OneWay}"
+                                   Style="{StaticResource StatNumberStyle}" Margin="0,4,0,4"/>
+                        <TextBlock Text="Total records" Style="{StaticResource CardLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="✅ " FontSize="14" Foreground="#8A8E9B"/>
+                            <TextBlock Text="VGM Certificates" Style="{StaticResource CardLabelStyle}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding VGMCertificates, Mode=OneWay}"
+                                   Style="{StaticResource StatNumberStyle}" Margin="0,4,0,4"/>
+                        <TextBlock Text="Total records" Style="{StaticResource CardLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                <Border CornerRadius="10" Padding="20"
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="⊟ " FontSize="14" Foreground="#8A8E9B"/>
+                            <TextBlock Text="Total Weight" Style="{StaticResource CardLabelStyle}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalWeight, Mode=OneWay}"
+                                   Style="{StaticResource StatNumberStyle}" Margin="0,4,0,4"/>
+                        <TextBlock Text="Processed" Style="{StaticResource CardLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- ── Config + Columns row ── -->
+            <Grid Grid.Row="2" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Export Configuration -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Export Configuration" FontFamily="Segoe UI"
+                                   FontSize="14" FontWeight="SemiBold" Foreground="#1A1F3A"
+                                   Margin="0,0,0,20"/>
+
+                        <TextBlock Text="EXPORT TYPE" Style="{StaticResource InputLabelStyle}"/>
+                        <ComboBox Style="{StaticResource DPComboBoxStyle}"
+                                  ItemsSource="{Binding ExportTypes}"
+                                  SelectedItem="{Binding ExportType}"
+                                  Margin="0,4,0,16"/>
+
+                        <TextBlock Text="DATE RANGE" Style="{StaticResource InputLabelStyle}"/>
+                        <ComboBox Style="{StaticResource DPComboBoxStyle}"
+                                  ItemsSource="{Binding DateRanges}"
+                                  SelectedItem="{Binding DateRange}"
+                                  Margin="0,4,0,16"/>
+
+                        <TextBlock Text="FORMAT" Style="{StaticResource InputLabelStyle}"/>
+                        <ComboBox Style="{StaticResource DPComboBoxStyle}"
+                                  ItemsSource="{Binding Formats}"
+                                  SelectedItem="{Binding Format}"
+                                  Margin="0,4,0,24"/>
+
+                        <Button Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding ExportDataCommand}"
+                                Height="44">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="↓  " FontSize="14"/>
+                                <TextBlock Text="Export Data" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Select Columns -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Select Columns to Export" FontFamily="Segoe UI"
+                                   FontSize="14" FontWeight="SemiBold" Foreground="#1A1F3A"
+                                   Margin="0,0,0,20"/>
+
+                        <UniformGrid Columns="2" Margin="0,0,0,0">
+                            <CheckBox Content="Ticket Number"      IsChecked="{Binding ColTicketNumber}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Date/Time"          IsChecked="{Binding ColDateTime}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Vehicle Number"     IsChecked="{Binding ColVehicleNumber}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Driver Name"        IsChecked="{Binding ColDriverName}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Container Number"   IsChecked="{Binding ColContainerNumber}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Material"           IsChecked="{Binding ColMaterial}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Supplier"           IsChecked="{Binding ColSupplier}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Weight Details"     IsChecked="{Binding ColWeightDetails}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,14"/>
+                            <CheckBox Content="Type (In/Outbound)" IsChecked="{Binding ColType}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,0"/>
+                            <CheckBox Content="Status"             IsChecked="{Binding ColStatus}"
+                                      Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
+                                      Margin="0,0,0,0"/>
+                        </UniformGrid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- ── Export Preview ── -->
+            <Border Grid.Row="3" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                        <TextBlock Text="⊟ " Foreground="#1A1F3A" FontSize="14"/>
+                        <TextBlock Text="Export Preview" FontFamily="Segoe UI"
+                                   FontSize="14" FontWeight="SemiBold" Foreground="#1A1F3A"/>
+                    </StackPanel>
+
+                    <Border CornerRadius="8" Background="#1A1F3A" Padding="20,16">
+                        <StackPanel>
+                            <TextBlock Foreground="#9DA3C0" FontFamily="Consolas" FontSize="12">
+                                <Run Text="// Export Configuration" Foreground="#4A5080"/>
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas" FontSize="12" Margin="0,6,0,0">
+                                <Run Text="Type: "   Foreground="#9DA3C0"/>
+                                <Run Text="{Binding ExportType}" Foreground="#C9A84C"/>
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas" FontSize="12">
+                                <Run Text="Format: " Foreground="#9DA3C0"/>
+                                <Run Text="{Binding Format}" Foreground="#C9A84C"/>
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas" FontSize="12">
+                                <Run Text="Date Range: " Foreground="#9DA3C0"/>
+                                <Run Text="{Binding DateRange}" Foreground="#2ECC71"/>
+                            </TextBlock>
+                            <TextBlock Foreground="#4A5080" FontFamily="Consolas"
+                                       FontSize="12" Margin="0,10,0,0">
+                                <Run Text="// Records to Export"/>
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas" FontSize="12" Margin="0,6,0,0">
+                                <Run Text="Records: " Foreground="#9DA3C0"/>
+                                <Run Text="{Binding WeighmentsAvailable, Mode=OneWay}" Foreground="#C9A84C"/>
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas" FontSize="12" Margin="0,10,0,0">
+                                <Run Text="✓ Ready to export" Foreground="#2ECC71"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

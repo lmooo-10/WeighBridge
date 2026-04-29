@@ -1,0 +1,254 @@
+<Window x:Class="WeighBridge.Views.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DP World – WeighBridge Login"
+        Width="1280" Height="720"
+        MinWidth="1000" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
+
+    <Grid>
+        <!-- Layer 0: Background -->
+        <Image Source="/Assets/Images/port_bg.jpg"
+               Stretch="UniformToFill"
+               RenderOptions.BitmapScalingMode="HighQuality"/>
+
+        <!-- Layer 1: Overlay -->
+        <Border>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#CC0D1128" Offset="0.0"/>
+                    <GradientStop Color="#991A1F3A" Offset="0.6"/>
+                    <GradientStop Color="#661A1F3A" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <!-- Layer 2: Top bar -->
+        <Grid VerticalAlignment="Top" Height="60">
+            <Grid.Background>
+                <SolidColorBrush Color="#CC1A1F3A"/>
+            </Grid.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Image Source="/Assets/Images/Logotype_de_DP_World.png"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="DP WORLD" Foreground="White"
+                               FontSize="16" FontWeight="Bold" FontFamily="Segoe UI" Margin="25,0,0,0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Images/map-icon.png"
+                               Height="16" Width="16" Margin="0,2.5,2.5,0"/>
+                        <TextBlock Text="WEIGHBRIDGE | ALGIERS"
+                               Foreground="#9DA3C0" FontSize="10" FontFamily="Segoe UI" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        VerticalAlignment="Center" Margin="10,0">
+                <StackPanel VerticalAlignment="Center" Margin="0,0,16,0">
+                    <TextBlock x:Name="TbTime" Text="--:--:--" Foreground="White"
+                               FontFamily="Consolas" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Right"/>
+                    <TextBlock x:Name="TbDate" Text="-- --- ----" Foreground="#9DA3C0"
+                               FontFamily="Segoe UI" FontSize="11"
+                               HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!-- Layer 3: Hero text -->
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Margin="60,0,0,0" Width="520">
+            <Border CornerRadius="12" Background="#33E8001D" BorderBrush="#E8001D"
+                    BorderThickness="1" Padding="10,5" HorizontalAlignment="Left"
+                    Margin="0,0,0,24">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" Fill="#E8001D"
+                             Margin="0,0,7,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="TERMINAL LIVE · ALGIERS "
+                               Foreground="#E8001D" FontSize="11"
+                               FontWeight="Bold" FontFamily="Segoe UI"/>
+                </StackPanel>
+            </Border>
+            <TextBlock Foreground="White" FontFamily="Segoe UI" FontSize="46"
+                       FontWeight="ExtraBold" LineHeight="52" TextWrapping="Wrap">
+                <Run Text="ELEVATE TERMINAL"/>
+                <LineBreak/>
+                <Run Text="OPERATIONS WITH"/>
+                <LineBreak/>
+                <Run Text="GLOBAL WEIGHBRIDGE" Foreground="#E8001D"/>
+                <LineBreak/>
+                <Run Text="STANDARDS" Foreground="#E8001D" />
+            </TextBlock>
+            <TextBlock Text="INTEGRATED LOGISTICS FOR SMART PORT &amp; TERMINAL MANAGEMENT.&#xA;ALGIERS DZA."
+                       Foreground="#9DA3C0" FontSize="12" FontFamily="Segoe UI"
+                       Margin="0,20,0,32" LineHeight="20"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,32,0">
+                    <TextBlock Text="90" Foreground="White" FontSize="28"
+                               FontWeight="Bold" FontFamily="Segoe UI"/>
+                    <TextBlock Text="GLOBAL PORTS" Foreground="#9DA3C0"
+                               FontSize="10" FontFamily="Segoe UI"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,32,0">
+                    <TextBlock Text="41" Foreground="White" FontSize="28"
+                               FontWeight="Bold" FontFamily="Segoe UI"/>
+                    <TextBlock Text="COUNTRIES" Foreground="#9DA3C0"
+                               FontSize="10" FontFamily="Segoe UI"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,32,0">
+                    <TextBlock Text="2.6M" Foreground="White" FontSize="28"
+                               FontWeight="Bold" FontFamily="Segoe UI"/>
+                    <TextBlock Text="TEUS/YEAR" Foreground="#9DA3C0"
+                               FontSize="10" FontFamily="Segoe UI"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="99.8%" Foreground="White" FontSize="28"
+                               FontWeight="Bold" FontFamily="Segoe UI"/>
+                    <TextBlock Text="UPTIME" Foreground="#9DA3C0"
+                               FontSize="10" FontFamily="Segoe UI"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Layer 4: Login card -->
+        <Border HorizontalAlignment="Right" VerticalAlignment="Center"
+                Margin="0,60,48,0" Width="360" CornerRadius="14"
+                Background="#F2F4F9" Padding="28,24,28,20">
+            <StackPanel>
+
+                <!-- Header -->
+                <TextBlock Text="TERMINAL LOGIN" FontFamily="Segoe UI" FontSize="20"
+                           FontWeight="ExtraBold" Foreground="#1A1F3A" Margin="0,0,0,4"/>
+                <TextBlock Text="WeighBridge Management System v2.1"
+                           FontFamily="Segoe UI" FontSize="12"
+                           Foreground="#8A8E9B" Margin="0,0,0,18"/>
+
+                <!-- ══ Role selector ══ -->
+                <TextBlock Text="SELECT ROLE" Style="{StaticResource InputLabelStyle}"
+                           Margin="0,0,0,8"/>
+                <UniformGrid Columns="3" Margin="0,0,0,12">
+                    <!--
+                        Using Click event (NOT Checked) to avoid the re-entry
+                        infinite loop that crashed previous versions
+                    -->
+                    <ToggleButton x:Name="BtnAgent"
+                                  Style="{StaticResource RoleButtonStyle}"
+                                  IsChecked="True"
+                                  Click="RoleButton_Click"
+                                  Tag="Agent"
+                                  Margin="0,0,5,0">
+                        <StackPanel>
+                            <TextBlock Text="Agent" FontSize="12" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Operator" FontSize="10"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="BtnCommercial"
+                                  Style="{StaticResource RoleButtonStyle}"
+                                  Click="RoleButton_Click"
+                                  Tag="Commercial"
+                                  Margin="2,0,3,0">
+                        <StackPanel>
+                            <TextBlock Text="Commercial" FontSize="12" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Commercial" FontSize="10"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="BtnAdmin"
+                                  Style="{StaticResource RoleButtonStyle}"
+                                  Click="RoleButton_Click"
+                                  Tag="Administrateur"
+                                  Margin="5,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Admin" FontSize="12" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Administrateur" FontSize="10"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ToggleButton>
+                </UniformGrid>
+
+                <!-- ══ Dynamic demo hint — updates when role changes ══ -->
+                <Border CornerRadius="6" Background="#FFF8E7"
+                        BorderBrush="#F0D080" BorderThickness="1"
+                        Padding="10,7" Margin="0,0,0,14">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Demo: " Foreground="#8A8E9B"
+                                   FontSize="11" FontFamily="Segoe UI"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TbDemoHint"
+                                   Text="operator / operator123"
+                                   Foreground="#C9A84C" FontSize="11"
+                                   FontWeight="SemiBold" FontFamily="Segoe UI"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Operator ID -->
+                <TextBlock Text="OPERATOR ID" Style="{StaticResource InputLabelStyle}"/>
+                <TextBox x:Name="TbOperatorId"
+                         Style="{StaticResource DPTextBoxStyle}"
+                         Margin="0,4,0,14"
+                         BorderBrush="DarkGray"
+                         CaretBrush="LightGray"
+                         BorderThickness="0,0,0,2">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/Assets/Images/user-icon.png"
+                                    Stretch="None" AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
+                <!-- Password -->
+                <TextBlock Text="PASSWORD" Style="{StaticResource InputLabelStyle}"/>
+                <PasswordBox x:Name="PbPassword"
+                             Style="{StaticResource DPPasswordBoxStyle}"
+                             Margin="0,4,0,14"
+                             BorderBrush="DarkGray"
+                             CaretBrush="LightGray"
+                             BorderThickness="0,0,0,2">
+                    <PasswordBox.Background>
+                        <ImageBrush ImageSource="/Assets/Images/key-icon.png"
+                                    Stretch="None" AlignmentX="Left"/>
+                    </PasswordBox.Background>
+                </PasswordBox>
+
+                <!-- Shift -->
+                <TextBlock Text="SELECT SHIFT" Style="{StaticResource InputLabelStyle}"/>
+                <ComboBox x:Name="CbShift"
+                          Style="{StaticResource DPComboBoxStyle}"
+                          Margin="0,4,0,14">
+                    <ComboBoxItem Content="Morning   (06:00 - 14:00)" IsSelected="True"/>
+                    <ComboBoxItem Content="Afternoon (14:00 - 22:00)"/>
+                    <ComboBoxItem Content="Night     (22:00 - 06:00)"/>
+                </ComboBox>
+
+                <!-- Error message -->
+                <TextBlock x:Name="TbError"
+                           Foreground="#E8001D" FontSize="12"
+                           TextWrapping="Wrap" Margin="0,0,0,6"
+                           Visibility="Collapsed"/>
+
+                <!-- Login button -->
+                <Button Style="{StaticResource PrimaryButtonStyle}"
+                        Click="BtnLogin_Click"
+                        Height="46" Margin="0,4,0,14">
+                    <TextBlock Text="LOG IN →" FontSize="14" FontWeight="Bold"
+                               FontFamily="Segoe UI"/>
+                </Button>
+
+                <!-- Stars rating -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="★★★★★" Foreground="#C9A84C" FontSize="16"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

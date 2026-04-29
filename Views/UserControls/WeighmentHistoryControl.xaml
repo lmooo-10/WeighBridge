@@ -1,0 +1,135 @@
+<UserControl x:Class="WeighBridge.Views.UserControls.WeighmentHistoryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            >
+
+
+    <Grid Background="{StaticResource ContentBgBrush}" Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ── Heading + Export button ── -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Weighment History" FontFamily="Segoe UI"
+                           FontSize="26" FontWeight="Bold" Foreground="#1A1F3A"/>
+                <TextBlock Text="View and manage all weighment records"
+                           FontFamily="Segoe UI" FontSize="13" Foreground="#8A8E9B" Margin="0,4,0,0"/>
+            </StackPanel>
+            <Button Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding ExportCsvCommand}"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Padding="16,10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="↓ " FontSize="13"/>
+                    <TextBlock Text="Export CSV" FontSize="13" FontWeight="SemiBold"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- ── Search & Filter bar ── -->
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <TextBlock Text="⊟ " Foreground="#1A1F3A" FontSize="14"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Text="Search &amp; Filter" FontFamily="Segoe UI"
+                               FontSize="14" FontWeight="SemiBold" Foreground="#1A1F3A"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Style="{StaticResource DPTextBoxStyle}"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Column="2" Style="{StaticResource DPComboBoxStyle}">
+                        <ComboBoxItem Content="All Types" IsSelected="True"/>
+                        <ComboBoxItem Content="Inbound"/>
+                        <ComboBoxItem Content="Outbound"/>
+                    </ComboBox>
+                    <ComboBox Grid.Column="4" Style="{StaticResource DPComboBoxStyle}">
+                        <ComboBoxItem Content="All Status" IsSelected="True"/>
+                        <ComboBoxItem Content="Completed"/>
+                        <ComboBoxItem Content="Pending"/>
+                    </ComboBox>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Records count + DataGrid ── -->
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Record count -->
+                <TextBlock Grid.Row="0"
+                           Text="{Binding FilteredRecords.Count, StringFormat='{}{0} Records Found'}"
+                           FontFamily="Segoe UI" FontSize="13" FontWeight="SemiBold"
+                           Foreground="#1A1F3A" Margin="20,14,0,14"/>
+
+                <!-- DataGrid -->
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding FilteredRecords}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserResizeColumns="True"
+                          RowHeight="46"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{StaticResource BorderBrush}"
+                          Background="White"
+                          BorderThickness="0"
+                          HeadersVisibility="Column"
+                          SelectionMode="Single">
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background"  Value="#1A1F3A"/>
+                            <Setter Property="Foreground"  Value="White"/>
+                            <Setter Property="FontFamily"  Value="Segoe UI"/>
+                            <Setter Property="FontSize"    Value="12"/>
+                            <Setter Property="FontWeight"  Value="SemiBold"/>
+                            <Setter Property="Padding"     Value="12,10"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="FontFamily" Value="Segoe UI"/>
+                            <Setter Property="FontSize"   Value="13"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#F5F7FF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Ticket #"   Binding="{Binding TicketNumber}"  Width="130"/>
+                        <DataGridTextColumn Header="Date/Time"  Binding="{Binding DateTime, StringFormat='dd MMM yyyy, HH:mm'}" Width="160"/>
+                        <DataGridTextColumn Header="Vehicle"    Binding="{Binding VehicleNumber}" Width="120"/>
+                        <DataGridTextColumn Header="Driver"     Binding="{Binding DriverName}"    Width="140"/>
+                        <DataGridTextColumn Header="Material"   Binding="{Binding Material}"      Width="160"/>
+                        <DataGridTextColumn Header="Gross"      Binding="{Binding GrossWeight, StringFormat='{}{0:F2} MT'}" Width="90"/>
+                        <DataGridTextColumn Header="Tare"       Binding="{Binding TareWeight,  StringFormat='{}{0:F2} MT'}" Width="90"/>
+                        <DataGridTextColumn Header="Net"        Binding="{Binding NetWeight,   StringFormat='{}{0:F2} MT'}" Width="90"/>
+                        <DataGridTextColumn Header="Type"       Binding="{Binding Type}"         Width="90"/>
+                        <DataGridTextColumn Header="Status"     Binding="{Binding Status}"        Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

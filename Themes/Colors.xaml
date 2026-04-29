@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- DP World Brand Colors -->
+    <Color x:Key="DPNavyColor">#1A1F3A</Color>
+    <Color x:Key="DPRedColor">#E8001D</Color>
+    <Color x:Key="DPGoldColor">#C9A84C</Color>
+    <Color x:Key="DPWhiteColor">#FFFFFF</Color>
+    <Color x:Key="DPLightGrayColor">#F5F5F7</Color>
+    <Color x:Key="DPMidGrayColor">#8A8E9B</Color>
+    <Color x:Key="DPDarkGrayColor">#3A3F5C</Color>
+    <Color x:Key="DPGreenColor">#2ECC71</Color>
+    <Color x:Key="DPOrangeColor">#E67E22</Color>
+    <Color x:Key="DPBlueAccentColor">#2D3561</Color>
+    <Color x:Key="DPSidebarBgColor">#161B35</Color>
+    <Color x:Key="DPNavbarBgColor">#1A1F3A</Color>
+    <Color x:Key="DPContentBgColor">#F0F2F8</Color>
+    <Color x:Key="DPCardBgColor">#FFFFFF</Color>
+    <Color x:Key="DPBorderColor">#E2E6F0</Color>
+    <Color x:Key="DPInputBgColor">#F8F9FC</Color>
+
+    <!-- SolidColorBrushes -->
+    <SolidColorBrush x:Key="NavyBrush"         Color="{StaticResource DPNavyColor}"/>
+    <SolidColorBrush x:Key="RedBrush"          Color="{StaticResource DPRedColor}"/>
+    <SolidColorBrush x:Key="GoldBrush"         Color="{StaticResource DPGoldColor}"/>
+    <SolidColorBrush x:Key="WhiteBrush"        Color="{StaticResource DPWhiteColor}"/>
+    <SolidColorBrush x:Key="LightGrayBrush"    Color="{StaticResource DPLightGrayColor}"/>
+    <SolidColorBrush x:Key="MidGrayBrush"      Color="{StaticResource DPMidGrayColor}"/>
+    <SolidColorBrush x:Key="DarkGrayBrush"     Color="{StaticResource DPDarkGrayColor}"/>
+    <SolidColorBrush x:Key="GreenBrush"        Color="{StaticResource DPGreenColor}"/>
+    <SolidColorBrush x:Key="OrangeBrush"       Color="{StaticResource DPOrangeColor}"/>
+    <SolidColorBrush x:Key="BlueAccentBrush"   Color="{StaticResource DPBlueAccentColor}"/>
+    <SolidColorBrush x:Key="SidebarBgBrush"    Color="{StaticResource DPSidebarBgColor}"/>
+    <SolidColorBrush x:Key="NavbarBgBrush"     Color="{StaticResource DPNavbarBgColor}"/>
+    <SolidColorBrush x:Key="ContentBgBrush"    Color="{StaticResource DPContentBgColor}"/>
+    <SolidColorBrush x:Key="CardBgBrush"       Color="{StaticResource DPCardBgColor}"/>
+    <SolidColorBrush x:Key="BorderBrush"       Color="{StaticResource DPBorderColor}"/>
+    <SolidColorBrush x:Key="InputBgBrush"      Color="{StaticResource DPInputBgColor}"/>
+    <SolidColorBrush x:Key="TransparentBrush"  Color="Transparent"/>
+
+</ResourceDictionary>
