@@ -12,4 +12,10 @@
     <Resource Include="Assets\Images\**\*" />
     <Resource Include="Assets\Icons\**\*" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="Fonts\COBE-EXTRA-BOLD.TTF">
+      <CopyToOutputDirectory>PreserveNewestpPreservNeweste</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 </Project>

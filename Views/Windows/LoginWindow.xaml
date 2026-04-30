@@ -72,7 +72,7 @@
                                FontWeight="Bold" FontFamily="Segoe UI"/>
                 </StackPanel>
             </Border>
-            <TextBlock Foreground="White" FontFamily="Segoe UI" FontSize="46"
+            <TextBlock Foreground="White" FontFamily="Cobe Extra Bold" FontSize="46"
                        FontWeight="ExtraBold" LineHeight="52" TextWrapping="Wrap">
                 <Run Text="ELEVATE TERMINAL"/>
                 <LineBreak/>
