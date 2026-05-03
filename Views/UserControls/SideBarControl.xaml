@@ -91,7 +91,7 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⊞" FontSize="15" Foreground="#9DA3C0"
+                            <TextBlock Text="⊞" FontSize="20" Foreground="Black"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Global Dashboard"
                                        Style="{StaticResource SideMenuTextStyle}"/>
@@ -113,7 +113,7 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚖" FontSize="15" Foreground="#9DA3C0"
+                            <Image  Source="/Assets/Images/weight-icon.png" Width="16"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Weighing Console"
                                        Style="{StaticResource SideMenuTextStyle}"/>
@@ -134,7 +134,7 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="☰" FontSize="15" Foreground="#9DA3C0"
+                            <Image Source="/Assets/Images/history-icon.png" Width="16"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Weighment History"
                                        Style="{StaticResource SideMenuTextStyle}"/>
@@ -156,7 +156,7 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📊" FontSize="14" Foreground="#9DA3C0"
+                            <Image Source="/Assets/Images/report-icon.png" Width="18"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Reports"
                                        Style="{StaticResource SideMenuTextStyle}"/>
@@ -178,7 +178,7 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="✅" FontSize="14" Foreground="#9DA3C0"
+                            <Image Source="/Assets/Images/notes-icon.png" Width="20"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="VGM Management"
                                        Style="{StaticResource SideMenuTextStyle}"/>
@@ -215,7 +215,7 @@
                             IsEnabled="False"
                             Visibility="{Binding ShowTerminalNetwork}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🌐" FontSize="14" Foreground="#3A4060"
+                            <TextBlock Text="🌐" FontSize="14" Foreground="Black"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Terminal Network" Foreground="#3A4060"
                                        FontSize="13" FontFamily="Segoe UI"
@@ -231,7 +231,7 @@
                     <!-- Vessel Schedule — ALL roles (SOON) -->
                     <Button Style="{StaticResource SideMenuButtonStyle}" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🚢" FontSize="14" Foreground="#3A4060"
+                            <TextBlock Text="🚢" FontSize="14" Foreground="Black"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Vessel Schedule" Foreground="#3A4060"
                                        FontSize="13" FontFamily="Segoe UI"
@@ -252,7 +252,7 @@
                             IsEnabled="False"
                             Visibility="{Binding ShowSettings}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚙" FontSize="15" Foreground="#3A4060"
+                            <Image Source="/Assets/Images/weight-icon.png" Width="16"
                                        Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Settings" Foreground="#3A4060"
                                        FontSize="13" FontFamily="Segoe UI"

@@ -32,14 +32,7 @@
                 BorderBrush="#0D1128" BorderThickness="0,0,0,1">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center" Margin="16,0">
-                <Image Source="/Assets/Images/Logotype_de_DP_World.png"/>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="DP WORLD" Foreground="White"
-                               FontSize="14" FontWeight="ExtraBold"
-                               FontFamily="Segoe UI"/>
-                    <TextBlock Text="WEIGHBRIDGE " Foreground="#4A5080"
-                               FontSize="9" FontFamily="Segoe UI" Margin="10,0,0,0"/>
-                </StackPanel>
+                <Image Source="/Assets/Images/Logotype_de_DP_World3.png" Width="130"/>
             </StackPanel>
         </Border>
 

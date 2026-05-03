@@ -1,6 +1,7 @@
+
 namespace WeighBridge.Models
 {
-    public enum WeighmentType   { Inbound, Outbound }
+    public enum WeighmentType   { Import, Export }
     public enum WeighmentStatus { Pending, Completed, Cancelled }
 
     public class WeighmentModel

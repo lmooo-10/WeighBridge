@@ -1,15 +1,22 @@
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using WeighBridge.Models;
+using WeighBridge.Repositories.Interfaces;
+using WeighBridge.Services.Interfaces;
 using WeighBridge.ViewModels.Base;
 using WeighBridge.Views.UserControls;
 using WeighBridge.Views.Windows;
-using System.Windows;
-using System.Windows.Controls;
-using System.Linq;
 
 namespace WeighBridge.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        // ── Services ──────────────────────────────────────────
+        private readonly IWeighmentRepository _repo;
+        private readonly IZodiacService _zodiac;
+        private readonly ITOSRepository _tos;
+
         // ── Current user ──────────────────────────────────────
         public UserModel CurrentUser { get; }
 
@@ -66,9 +73,17 @@ namespace WeighBridge.ViewModels
         private readonly Dictionary<string, UserControl> _pageCache = new();
 
         // ── Constructor ───────────────────────────────────────
-        public MainViewModel(UserModel user)
+        public MainViewModel(UserModel user,
+                             IWeighmentRepository repo,
+                             IZodiacService zodiac,
+                             ITOSRepository tos)
         {
             CurrentUser = user;
+
+            _repo = repo;
+            _zodiac = zodiac;
+            _tos = tos;
+
             NavigateCommand = new RelayCommand(ExecuteNavigate);
             LogoutCommand = new RelayCommand(ExecuteLogout);
             _activePage = GetOrCreatePage("dashboard");
@@ -112,7 +127,7 @@ namespace WeighBridge.ViewModels
                 case "dashboard":
                     page = new DashboardControl();
                     // Dashboard binds to CurrentUser/role flags → MainViewModel
-                    page.DataContext = this;
+                    page.DataContext = new DashboardViewModel(_repo, _zodiac, _tos, CurrentUser); ;
                     break;
 
                 case "console":
@@ -158,7 +173,7 @@ namespace WeighBridge.ViewModels
 
                 default:
                     page = new DashboardControl();
-                    page.DataContext = this;
+                    page.DataContext = this ;
                     break;
             }
 

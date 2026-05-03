@@ -1,20 +1,27 @@
 using System.Windows;
 using WeighBridge.Models;
+using WeighBridge.Repositories.Interfaces;
+using WeighBridge.Services.Interfaces;
 using WeighBridge.ViewModels;
 using WeighBridge.Views.UserControls;
 
 namespace WeighBridge.Views.Windows
 {
+
     public partial class MainWindow : Window
     {
+
         private readonly MainViewModel _vm;
 
-        public MainWindow(UserModel user)
+        public MainWindow(UserModel user,
+                  IWeighmentRepository repo,
+                  IZodiacService zodiac,
+                  ITOSRepository tos)
         {
             InitializeComponent();
 
             // ── Create ViewModel ─────────────────────────────
-            _vm          = new MainViewModel(user);
+            _vm          = new MainViewModel(user, repo, zodiac, tos);
             DataContext  = _vm;
 
             // ── Inject NavBar (Row 0, Col 1) ─────────────────

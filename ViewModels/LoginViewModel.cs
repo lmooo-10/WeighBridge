@@ -1,4 +1,7 @@
+using Microsoft.Extensions.DependencyInjection;
 using WeighBridge.Models;
+using WeighBridge.Repositories.Interfaces;
+using WeighBridge.Services.Interfaces;
 using WeighBridge.ViewModels.Base;
 using WeighBridge.Views.Windows;
 
@@ -111,11 +114,20 @@ namespace WeighBridge.ViewModels
                 Shift      = SelectedShift
             };
 
-            // Open MainWindow, close login
-            var main = new MainWindow(user);
+            // ── Store user + open MainWindow with services ────────
+            App.LoggedInUser = user;
+
+            var main = new MainWindow(
+                user,
+                App.ServiceProvider!.GetRequiredService<IWeighmentRepository>(),
+                App.ServiceProvider!.GetRequiredService<IZodiacService>(),
+                App.ServiceProvider!.GetRequiredService<ITOSRepository>()
+            );
+
+            System.Windows.Application.Current.MainWindow = main;
             main.Show();
 
-            // Close LoginWindow (caller)
+            // Close LoginWindow
             foreach (System.Windows.Window w in System.Windows.Application.Current.Windows)
                 if (w is LoginWindow lw) { lw.Close(); break; }
         }

@@ -31,7 +31,7 @@ namespace WeighBridge.Services
                 Supplier      = "Gulf Steel Industries",
                 GrossWeight   = 28.5,
                 TareWeight    = 8.5,
-                Type          = WeighmentType.Inbound,
+                Type          = WeighmentType.Import,
                 Status        = WeighmentStatus.Completed,
                 OperatorId    = "operator"
             },
@@ -45,7 +45,7 @@ namespace WeighBridge.Services
                 Supplier      = "Construction Co.",
                 GrossWeight   = 32.0,
                 TareWeight    = 9.0,
-                Type          = WeighmentType.Outbound,
+                Type          = WeighmentType.Export,
                 Status        = WeighmentStatus.Completed,
                 OperatorId    = "operator"
             },
@@ -59,7 +59,7 @@ namespace WeighBridge.Services
                 Supplier      = "Gulf Steel Industries",
                 GrossWeight   = 15.0,
                 TareWeight    = 0.0,
-                Type          = WeighmentType.Inbound,
+                Type          = WeighmentType.Import,
                 Status        = WeighmentStatus.Pending,
                 OperatorId    = "operator"
             },
@@ -73,7 +73,7 @@ namespace WeighBridge.Services
                 Supplier      = "Parts Trading LLC",
                 GrossWeight   = 26.0,
                 TareWeight    = 7.5,
-                Type          = WeighmentType.Inbound,
+                Type          = WeighmentType.Import,
                 Status        = WeighmentStatus.Completed,
                 OperatorId    = "operator"
             },
@@ -87,7 +87,7 @@ namespace WeighBridge.Services
                 Supplier      = "Fabric World DMCC",
                 GrossWeight   = 19.0,
                 TareWeight    = 6.8,
-                Type          = WeighmentType.Outbound,
+                Type          = WeighmentType.Export,
                 Status        = WeighmentStatus.Completed,
                 OperatorId    = "operator"
             },

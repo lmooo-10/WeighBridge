@@ -33,17 +33,16 @@
                 <SolidColorBrush Color="#CC1A1F3A"/>
             </Grid.Background>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Image Source="/Assets/Images/Logotype_de_DP_World.png"/>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="DP WORLD" Foreground="White"
-                               FontSize="16" FontWeight="Bold" FontFamily="Segoe UI" Margin="25,0,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/Images/map-icon.png"
-                               Height="16" Width="16" Margin="0,2.5,2.5,0"/>
-                        <TextBlock Text="WEIGHBRIDGE | ALGIERS"
-                               Foreground="#9DA3C0" FontSize="10" FontFamily="Segoe UI" Margin="0,5,0,0"/>
-                    </StackPanel>
+                <Image Source="/Assets/Images/Logotype_de_DP_World3.png" Width="130"/>
+                <StackPanel Orientation="Horizontal">
+
+                    <Image Source="/Assets/Images/map-icon.png"
+               Height="16" Width="16" Margin="5,2.5,2.5,0"/>
+                    <TextBlock Text="WEIGHBRIDGE | ALGIERS"
+               Foreground="#9DA3C0" FontSize="10" FontFamily="Segoe UI" Margin="0,10,0,0"/>
                 </StackPanel>
+
+
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                         VerticalAlignment="Center" Margin="10,0">
@@ -237,7 +236,7 @@
 
                 <!-- Login button -->
                 <Button Style="{StaticResource PrimaryButtonStyle}"
-                        Click="BtnLogin_Click"
+                        Command="{Binding LoginCommand }"
                         Height="46" Margin="0,4,0,14">
                     <TextBlock Text="LOG IN →" FontSize="14" FontWeight="Bold"
                                FontFamily="Segoe UI"/>

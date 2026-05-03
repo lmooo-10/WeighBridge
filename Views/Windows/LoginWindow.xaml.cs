@@ -1,6 +1,10 @@
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using WeighBridge.Models;
+using WeighBridge.Repositories.Interfaces;
+using WeighBridge.Services.Interfaces;
+using WeighBridge.ViewModels;
 
 namespace WeighBridge.Views.Windows
 {
@@ -19,6 +23,20 @@ namespace WeighBridge.Views.Windows
         public LoginWindow()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
+            // ← wire PasswordBox manually (can't use binding)
+            PbPassword.PasswordChanged += (_, _) =>
+            {
+                if (DataContext is LoginViewModel vm)
+                    vm.Password = PbPassword.Password;
+            };
+
+            // ← wire TextBox manually if binding is broken
+            TbOperatorId.TextChanged += (_, _) =>
+            {
+                if (DataContext is LoginViewModel vm)
+                    vm.OperatorId = TbOperatorId.Text;
+            };
             var timer = new System.Windows.Threading.DispatcherTimer
                 { Interval = TimeSpan.FromSeconds(1) };
             timer.Tick += (_, _) => UpdateClock();
@@ -35,57 +53,29 @@ namespace WeighBridge.Views.Windows
         private void RoleButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not ToggleButton clicked) return;
-            BtnAgent.IsChecked      = false;
+            BtnAgent.IsChecked = false;
             BtnCommercial.IsChecked = false;
-            BtnAdmin.IsChecked      = false;
-            clicked.IsChecked       = true;
+            BtnAdmin.IsChecked = false;
+            clicked.IsChecked = true;
             _selectedRole = clicked.Tag?.ToString() ?? "Agent";
-            if (_creds.TryGetValue(_selectedRole, out var c))
-                TbDemoHint.Text = c.Hint;
-            TbError.Visibility = Visibility.Collapsed;
-        }
-
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            TbError.Visibility = Visibility.Collapsed;
-            var id   = TbOperatorId.Text.Trim();
-            var pass = PbPassword.Password;
-
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pass))
-            { ShowError("Please enter Operator ID and Password."); return; }
-
-            if (!_creds.TryGetValue(_selectedRole, out var expected))
-            { ShowError("Unknown role."); return; }
-
-            if (id != expected.Id || pass != expected.Pass)
-            { ShowError($"Wrong credentials for '{_selectedRole}'.\nDemo: {expected.Hint}"); return; }
-
-            var user = new UserModel
+            // ✅ Sync role to ViewModel
+            if (DataContext is LoginViewModel vm)
             {
-                OperatorId    = id,
-                FullName      = GetFullName(id),
-                Initials      = GetInitials(id),
-                Role          = ParseRole(_selectedRole),
-                Shift         = GetShift(),
-                WeighbridgeId = "WB-01"
-            };
+                vm.SelectedRole = _selectedRole switch
+                {
+                    "Commercial" => UserRole.Commercial,
+                    "Administrateur" => UserRole.Administrateur,
+                    _ => UserRole.Agent
+                };
 
-            // ═══════════════════════════════════════════════════
-            // THE FIX:
-            // ShutdownMode = OnMainWindowClose
-            // → app only shuts down when the MAIN window closes
-            // → LoginWindow closing does NOT kill the app
-            //
-            // Step 1: create MainWindow
-            // Step 2: tell WPF this IS the MainWindow
-            // Step 3: show it
-            // Step 4: close login (safe — MainWindow is alive)
-            // ═══════════════════════════════════════════════════
-            var main = new MainWindow(user);
-            Application.Current.MainWindow = main;   // ← KEY LINE
-            main.Show();
-            this.Close();
+                if (_creds.TryGetValue(_selectedRole, out var c))
+                    TbDemoHint.Text = c.Hint;
+            }
+
+            TbError.Visibility = Visibility.Collapsed;
         }
+
+
 
         private void ShowError(string msg)
         {
@@ -118,5 +108,53 @@ namespace WeighBridge.Views.Windows
             "Administrateur" => UserRole.Administrateur,
             _                => UserRole.Agent
         };
+
+        //private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        //{
+        //TbError.Visibility = Visibility.Collapsed;
+        //var id   = TbOperatorId.Text.Trim();
+        //var pass = PbPassword.Password;
+
+        //if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pass))
+        //{ ShowError("Please enter Operator ID and Password."); return; }
+
+        //if (!_creds.TryGetValue(_selectedRole, out var expected))
+        //{ ShowError("Unknown role."); return; }
+
+        //if (id != expected.Id || pass != expected.Pass)
+        //{ ShowError($"Wrong credentials for '{_selectedRole}'.\nDemo: {expected.Hint}"); return; }
+
+        //var user = new UserModel
+        //{
+        //OperatorId    = id,
+        //FullName      = GetFullName(id),
+        //Initials      = GetInitials(id),
+        //Role          = ParseRole(_selectedRole),
+        //Shift         = GetShift(),
+        //WeighbridgeId = "WB-01"
+        //};
+
+        // ═══════════════════════════════════════════════════
+        // THE FIX:
+        // ShutdownMode = OnMainWindowClose
+        // → app only shuts down when the MAIN window closes
+        // → LoginWindow closing does NOT kill the app
+        //
+        // Step 1: create MainWindow
+        // Step 2: tell WPF this IS the MainWindow
+        // Step 3: show it
+        // Step 4: close login (safe — MainWindow is alive)
+        // ═══════════════════════════════════════════════════
+
+        // LoginWindow.xaml.cs — after login success
+        //App.LoggedInUser = user;
+        //var repo = App.ServiceProvider.GetRequiredService<IWeighmentRepository>();
+        //var zodiac = App.ServiceProvider.GetRequiredService<IZodiacService>();
+        //var tos = App.ServiceProvider.GetRequiredService<ITOSRepository>();
+
+        //var mainWindow = new MainWindow(App.LoggedInUser, repo, zodiac, tos);
+        //mainWindow.Show();
+        //this.Close();
+        //}
     }
 }
