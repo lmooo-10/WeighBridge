@@ -150,7 +150,7 @@ namespace WeighBridge.ViewModels
             SimulateLiveWeight(targetTicks: 20, onComplete: () =>
             {
                 // Ne capture pas encore — l'opérateur valide via ConfirmDual20Command
-                Status = "Stabilized — press to Confirm";
+                Status = "Stable — press to Confirm";
             });
         }
 
