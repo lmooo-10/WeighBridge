@@ -93,8 +93,8 @@ namespace WeighBridge.ViewModels
         {
             1 => "GROSS WEIGHT",// "PESÉE N1 — Camion chargé (CTN1 + CTN2)",
             2 => "TARE ", //"TARE N1 / PESÉE N2 — Camion chargé (CTN2)",
-            3 => "TERMINÉ",
-            _ => "EN ATTENTE"
+            3 => "COMPLETE",
+            _ => "WAITING"
         };
 
         public string Dual20StageLabel => _dual20Step switch
@@ -102,8 +102,8 @@ namespace WeighBridge.ViewModels
             1 => "GROSS WEIGHT",// "PESÉE N1 — Camion chargé (CTN1 + CTN2)",
             2 => "TARE N1", //"TARE N1 / PESÉE N2 — Camion chargé (CTN2)",
             3 => "TARE N2", //"TARE N2 — Camion vide",
-            4 => "TERMINÉ",
-            _ => "EN ATTENTE"
+            4 => "COMPLETE",
+            _ => "WAITING"
         };
 
         public List<string> WeighmentTypes { get; } = new() { "Import", "Export" };
@@ -144,13 +144,13 @@ namespace WeighBridge.ViewModels
             if (_singleModeStep == 0) SingleModeStep = 1;   // première activation
 
             IsWeighing = true;
-            Status = $"Pesée {SingleModeStageLabel}…";
+            Status = $"Weigh {SingleModeStageLabel}…";
             OnPropertyChanged(nameof(SingleModeStageLabel));
 
             SimulateLiveWeight(targetTicks: 20, onComplete: () =>
             {
                 // Ne capture pas encore — l'opérateur valide via ConfirmDual20Command
-                Status = "Stabilisé — appuyez sur Confirmer";
+                Status = "Stabilized — press to Confirm";
             });
         }
 
@@ -163,14 +163,14 @@ namespace WeighBridge.ViewModels
                 case 1:                                     // ── Pesée N1 : brut total
                     GrossWeight = LiveWeight;
                     Stage = "GROSS WEIGHT";   // "TARE N1 / PESÉE N2";
-                    Status = "Brut total enregistré — déchargez CTN1, remontez sur le pont"; //"CTN1 enregistré — déchargez CTN1, remontez sur le pont";
+                    Status = "Gross weight recorded — unload CTN1 and return to the scale"; //"CTN1 enregistré — déchargez CTN1, remontez sur le pont";
                     SingleModeStep = 2;
                     break;
 
                 case 2:                                     // ── Tare N1 = brut N2
                     TareWeight = LiveWeight; //IntermediateWeightN1 = LiveWeight;
                     NetWeight = Math.Round(GrossWeight - TareWeight,2);
-                    Stage = "TERMIN";
+                    Stage = "COMPLETE";
                     Status = $"net : {NetWeight:F1} t";//Status = $"CTN1 net : {NetWeightCtn1:F2} t  |  CTN2 net : {NetWeightCtn2:F2} t";
                     SingleModeStep = 3;
                     break;
@@ -187,13 +187,13 @@ namespace WeighBridge.ViewModels
             if (_dual20Step == 0) Dual20Step = 1;   // première activation
 
             IsWeighing = true;
-            Status = $"Pesée {Dual20StageLabel}…";
+            Status = $"Weigh {Dual20StageLabel}…";
             OnPropertyChanged(nameof(Dual20StageLabel));
 
             SimulateLiveWeight(targetTicks: 20, onComplete: () =>
             {
                 // Ne capture pas encore — l'opérateur valide via ConfirmDual20Command
-                Status = "Stabilisé — appuyez sur Confirmer";
+                Status = "Stable — press confirm the weight";
             });
         }
 
@@ -207,7 +207,7 @@ namespace WeighBridge.ViewModels
                 case 1:                                     // ── Pesée N1 : brut total
                     GrossWeightN1 = LiveWeight;
                     Stage = "GROSS WEIGHT";   // "TARE N1 / PESÉE N2";
-                    Status = "Brut total enregistré — déchargez CTN1, remontez sur le pont"; //"CTN1 enregistré — déchargez CTN1, remontez sur le pont";
+                    Status = "Gross weight recorded — unload CTN1 and return to the scale"; //"CTN1 enregistré — déchargez CTN1, remontez sur le pont";
                     Dual20Step = 2;
                     break;
 
@@ -216,7 +216,7 @@ namespace WeighBridge.ViewModels
                     NetWeightCtn1 = Math.Round(GrossWeightN1 - TareN1, 2);
 
                     Stage = "TARE N1"; //"TARE N2";
-                    Status = "CTN1 brut enregistré — déchargez CTN2, remontez vide"; //"CTN2 brut enregistré — déchargez CTN2, remontez vide";
+                    Status = "CTN1 gross recorded — unload CTN2, return empty to the scale"; //"CTN2 brut enregistré — déchargez CTN2, remontez vide";
                     Dual20Step = 3;
                     break;
 
@@ -227,7 +227,7 @@ namespace WeighBridge.ViewModels
                     TareWeight = TareN2;
                     NetWeightCtn2 = Math.Round(TareN1 - TareN2, 2);
 
-                    Stage = "TERMINÉ";
+                    Stage = "COMPLETE";
                     Status = $"CTN1 net : {NetWeightCtn1:F2} t  |  CTN2 net : {NetWeightCtn2:F2} t";
                     Dual20Step = 4;
                     break;
@@ -242,6 +242,7 @@ namespace WeighBridge.ViewModels
             GrossWeight = 0.0;
             TareWeight = 0.0;
             LiveWeight = 0.0;
+            NetWeight = 0.0;
             Stage = "GROSS WEIGHT";
             Status = "Idle";
             IsWeighing = false;
