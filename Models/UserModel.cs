@@ -11,6 +11,7 @@ namespace WeighBridge.Models
         public UserRole Role          { get; set; }
         public Shift    Shift         { get; set; }
         public string   WeighbridgeId { get; set; } = "WB-01";
+        public bool IsActive { get; set; } = true;
 
         // ── Computed display properties (used by XAML bindings) ──
         public string RoleDisplayName => Role switch

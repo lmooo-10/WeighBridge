@@ -20,6 +20,38 @@
             <helpers:NullToVisibilityConverter        x:Key="NullToVisibilityConverter"/>
             <helpers:BoolToVisibilityConverter        x:Key="BoolToVisibilityConverter"/>
             <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+            <SolidColorBrush x:Key="PrimaryTextBrush" Color="#1A1F3A"/>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="Background"   Value="#E8EAF0"/>
+                <Setter Property="Foreground"   Value="#1A1F3A"/>
+                <Setter Property="BorderBrush"  Value="#C5C8D4"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontFamily"   Value="Segoe UI"/>
+                <Setter Property="FontSize"     Value="13"/>
+                <Setter Property="FontWeight"   Value="SemiBold"/>
+                <Setter Property="Cursor"       Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#D0D3DE"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

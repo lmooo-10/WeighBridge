@@ -146,6 +146,11 @@ namespace WeighBridge.ViewModels
                     page.DataContext = new WeighmentHistoryViewModel();
                     break;
 
+                case "containers":
+                    page = new ContainerTrackingControl();
+                    page.DataContext = new ContainerTrackingViewModel();
+                    break;
+
                 case "reports":
                     page = new ReportsControl();
                     // ReportsControl binds to: ReportType, Period, ReportTypes,
@@ -171,6 +176,11 @@ namespace WeighBridge.ViewModels
                     page.DataContext = new ExportsViewModel();
                     break;
 
+                case "settings":
+                    page = new UserManagementControl();
+                    page.DataContext = new UserManagementViewModel();
+                    break;
+
                 default:
                     page = new DashboardControl();
                     page.DataContext = this ;
@@ -186,9 +196,11 @@ namespace WeighBridge.ViewModels
             "dashboard" => "GLOBAL OPERATIONS",
             "console" => "WEIGHING CONSOLE",
             "history" => "WEIGHMENT HISTORY",
+            "containers" => "SUIVI DES CONTENEURS",
             "reports" => "REPORTS & ANALYTICS",
             "vgm" => "VGM MANAGEMENT",
             "exports" => "DATA EXPORTS",
+            "settings" => "USER MANAGEMENT",
             _ => "GLOBAL OPERATIONS"
         };
 

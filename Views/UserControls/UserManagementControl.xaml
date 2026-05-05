@@ -1,0 +1,510 @@
+﻿<!-- UserManagementControl.xaml — Modern DP World redesign -->
+<UserControl x:Class="WeighBridge.Views.UserControls.UserManagementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F4F6F9">
+
+    <Grid Margin="28">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ══ Left — User list ══ -->
+        <Grid Grid.Column="0" Margin="0,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                    <Border Width="4" Height="24" Background="#E8001D"
+                            CornerRadius="2" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="USER MANAGEMENT"
+                               Foreground="#1a1f3a" FontSize="26"
+                               FontWeight="Bold" FontFamily="Segoe UI"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="Manage operator accounts, roles and access permissions"
+                           Foreground="#4A5080" FontSize="12" FontFamily="Segoe UI"
+                           Margin="16,0,0,0"/>
+            </StackPanel>
+
+            <!-- Stats row -->
+            <Grid Grid.Row="1" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Total Users -->
+                <Border Grid.Column="0" Margin="0,0,8,0"
+                        Background="White" CornerRadius="10" Padding="16,12" BorderThickness="0,0,0,3" BorderBrush="#c9a84b">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL USERS" Foreground="#4A5080" Style="{StaticResource CardLabelStyle}"
+                                   FontSize="10" FontWeight="Bold" FontFamily="Segoe UI"/>
+                        <TextBlock Text="{Binding Users.Count}" Style="{StaticResource StatNumberStyle}"
+                                   Foreground="#c9a84b" FontSize="28"
+                                   FontWeight="ExtraBold" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Active -->
+                <Border Grid.Column="1" Margin="4,0,4,0"
+                        Background="White" CornerRadius="10" Padding="16,12" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                    <StackPanel>
+                        <TextBlock Text="ACTIVE" Foreground="#4A5080" Style="{StaticResource CardLabelStyle}"
+                                   FontSize="10" FontWeight="Bold" FontFamily="Segoe UI"/>
+                        <TextBlock Foreground="#2ECC71" FontSize="28" Style="{StaticResource StatNumberStyle}"
+                                   FontWeight="ExtraBold" FontFamily="Segoe UI">
+                            <TextBlock.Text>
+                                <Binding Path="ActiveCount"/>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Roles -->
+                <Border Grid.Column="2" Margin="8,0,0,0"
+                        Background="White" CornerRadius="10" Padding="16,12" BorderThickness="0,0,0,3" BorderBrush="#E8001D">
+                    <StackPanel>
+                        <TextBlock Text="ADMINS" Foreground="#4A5080" Style="{StaticResource CardLabelStyle}"
+                                   FontSize="10" FontWeight="Bold" FontFamily="Segoe UI"/>
+                        <TextBlock Foreground="#E8001D" FontSize="28" Style="{StaticResource StatNumberStyle}"
+                                   FontWeight="ExtraBold" FontFamily="Segoe UI"
+                                   Text="{Binding AdminCount}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Toolbar + Table -->
+            <Border Grid.Row="2" Background="#1A1F3A" CornerRadius="12">
+                <DockPanel>
+
+                    <!-- Toolbar -->
+                    <Border DockPanel.Dock="Top"
+                            BorderBrush="#252B50" BorderThickness="0,0,0,1"
+                            Padding="16,12">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Command="{Binding NewUserCommand}"
+                                    Padding="16,8" Margin="0,0,8,0"
+                                    Cursor="Hand">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background"  Value="#E8001D"/>
+                                        <Setter Property="Foreground"  Value="White"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="FontFamily"  Value="Segoe UI"/>
+                                        <Setter Property="FontSize"    Value="12"/>
+                                        <Setter Property="FontWeight"  Value="Bold"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="6"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#C0001A"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="+" FontSize="16" Margin="0,0,6,0"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="NEW USER" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Command="{Binding DeactivateCommand}"
+                                    Padding="14,8" Margin="0,0,8,0" Cursor="Hand">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background"  Value="#252B50"/>
+                                        <Setter Property="Foreground"  Value="#9DA3C0"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="FontFamily"  Value="Segoe UI"/>
+                                        <Setter Property="FontSize"    Value="12"/>
+                                        <Setter Property="FontWeight"  Value="SemiBold"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="6"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#2E3560"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Opacity" Value="0.4"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Text="DEACTIVATE"/>
+                            </Button>
+
+                            <Button Command="{Binding ResetPasswordCommand}"
+                                    Padding="14,8" Cursor="Hand">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background"  Value="#252B50"/>
+                                        <Setter Property="Foreground"  Value="#9DA3C0"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="FontFamily"  Value="Segoe UI"/>
+                                        <Setter Property="FontSize"    Value="12"/>
+                                        <Setter Property="FontWeight"  Value="SemiBold"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="6"
+                                                            Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#2E3560"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Opacity" Value="0.4"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Text="RESET PASSWORD"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- DataGrid -->
+                    <DataGrid DockPanel.Dock="Top"
+                              ItemsSource="{Binding Users}"
+                              SelectedItem="{Binding SelectedUser}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              RowHeight="48"
+                              CanUserResizeRows="False"
+                              CanUserReorderColumns="False"
+                              SelectionMode="Single">
+
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background"   Value="Transparent"/>
+                                <Setter Property="Foreground"   Value="#4A5080"/>
+                                <Setter Property="FontSize"     Value="10"/>
+                                <Setter Property="FontWeight"   Value="Bold"/>
+                                <Setter Property="FontFamily"   Value="Segoe UI"/>
+                                <Setter Property="Padding"      Value="16,10"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background"  Value="Transparent"/>
+                                <Setter Property="Foreground"  Value="#9DA3C0"/>
+                                <Setter Property="FontFamily"  Value="Segoe UI"/>
+                                <Setter Property="FontSize"    Value="13"/>
+                                <Setter Property="BorderBrush" Value="#1E2448"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#1E2448"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#252B50"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Padding"         Value="16,0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Padding="{TemplateBinding Padding}"
+                                                    Background="Transparent">
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="OPERATOR ID"
+                                                Binding="{Binding OperatorId}"
+                                                Width="140"/>
+                            <DataGridTextColumn Header="FULL NAME"
+                                                Binding="{Binding FullName}"
+                                                Width="*"/>
+                            <DataGridTemplateColumn Header="ROLE" Width="160">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="4" Padding="8,3"
+                                                HorizontalAlignment="Left">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="#5A491B"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Role}" Value="Administrateur">
+                                                            <Setter Property="Background" Value="#2D0A10"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Role}" Value="Commercial">
+                                                            <Setter Property="Background" Value="#0A2D1A"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock Text="{Binding RoleDisplayName}"
+                                                       FontSize="11" FontWeight="Bold"
+                                                       FontFamily="Segoe UI">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="#C9A84C"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Role}" Value="Administrateur">
+                                                                <Setter Property="Foreground" Value="#E8001D"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Role}" Value="Commercial">
+                                                                <Setter Property="Foreground" Value="#2ECC71"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="STATUS" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Ellipse Width="7" Height="7" Margin="0,0,6,0"
+                                                     VerticalAlignment="Center">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Setter Property="Fill" Value="#2ECC71"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                                <Setter Property="Fill" Value="#E8001D"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+                                            <TextBlock VerticalAlignment="Center" FontSize="12">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text"       Value="Active"/>
+                                                        <Setter Property="Foreground" Value="#2ECC71"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                                <Setter Property="Text"       Value="Inactive"/>
+                                                                <Setter Property="Foreground" Value="#E8001D"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Status message -->
+                    <Border DockPanel.Dock="Bottom" Padding="16,10"
+                            Visibility="{Binding HasMessage,
+                                Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="7" Height="7" Fill="#2ECC71"
+                                     Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Message}"
+                                       Foreground="#2ECC71" FontSize="12"
+                                       FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </Border>
+
+                </DockPanel>
+            </Border>
+        </Grid>
+
+        <!-- ══ Right — Edit / Create form ══ -->
+        <Border Grid.Column="1" Background="#1A1F3A" CornerRadius="12"
+        Visibility="{Binding IsFormVisible,
+            Converter={StaticResource BoolToVisibilityConverter}}">
+            <DockPanel>
+
+                <!-- Form header -->
+                <Border DockPanel.Dock="Top"
+                        BorderBrush="#252B50" BorderThickness="0,0,0,1"
+                        Padding="20,16">
+                    <StackPanel>
+                        <TextBlock Text="CREATE / EDIT USER"
+                                   Foreground="White" FontSize="14"
+                                   FontWeight="ExtraBold" FontFamily="Segoe UI"/>
+                        <TextBlock Text="Fill in the details below"
+                                   Foreground="#4A5080" FontSize="11"
+                                   FontFamily="Segoe UI" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Form fields -->
+                <StackPanel DockPanel.Dock="Top" Margin="20,20,20,0">
+
+                    <!-- Operator ID -->
+                    <TextBlock Text="OPERATOR ID" Foreground="#4A5080"
+                               FontSize="10" FontWeight="Bold"
+                               FontFamily="Segoe UI" Margin="0,0,0,6"/>
+                    <Border Background="#0D1128" CornerRadius="7"
+                            BorderBrush="#252B50" BorderThickness="1"
+                            Margin="0,0,0,16">
+                        <TextBox Text="{Binding FormOperatorId, UpdateSourceTrigger=PropertyChanged}" Foreground="White"
+                                 BorderThickness="0" Padding="18,10"
+                                 FontFamily="Segoe UI" FontSize="13"
+                                 CaretBrush="White" Margin="5,0,0,0">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Assets/Images/user-icon.png"
+                                            Stretch="None" AlignmentX="Left"/>
+                            </TextBox.Background>
+                        </TextBox>
+
+                    </Border>
+
+                    <!-- Full Name -->
+                    <TextBlock Text="FULL NAME" Foreground="#4A5080"
+                               FontSize="10" FontWeight="Bold"
+                               FontFamily="Segoe UI" Margin="0,0,0,6"/>
+                    <Border Background="#0D1128" CornerRadius="7"
+                            BorderBrush="#252B50" BorderThickness="1"
+                            Margin="0,0,0,16">
+                        <TextBox Text="{Binding FormFullName, UpdateSourceTrigger=PropertyChanged}" Foreground="White"
+                                 BorderThickness="0" Padding="18,10"
+                                 FontFamily="Segoe UI" FontSize="13"
+                                 CaretBrush="White" Margin="5,0,0,0">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Assets/Images/user-icon.png"
+                                            Stretch="None" AlignmentX="Left"/>
+                            </TextBox.Background>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Password -->
+                    <TextBlock Text="PASSWORD" Foreground="#4A5080"
+                               FontSize="10" FontWeight="Bold"
+                               FontFamily="Segoe UI" Margin="0,0,0,6"/>
+                    <Border Background="#0D1128" CornerRadius="7"
+                            BorderBrush="#252B50" BorderThickness="1"
+                            Margin="0,0,0,16">
+                        <PasswordBox x:Name="PbPassword" Foreground="White"
+                                     BorderThickness="0" Padding="18,10"
+                                     FontFamily="Segoe UI" FontSize="13"
+                                     CaretBrush="White" Margin="5,0,0,0">
+                            <PasswordBox.Background>
+                                <ImageBrush ImageSource="/Assets/Images/key-icon.png"
+                                            Stretch="None" AlignmentX="Left"/>
+                            </PasswordBox.Background>
+                        </PasswordBox>
+                    </Border>
+
+                    <!-- Role -->
+                    <TextBlock Text="ROLE" Foreground="#4A5080"
+                               FontSize="10" FontWeight="Bold"
+                               FontFamily="Segoe UI" Margin="0,0,0,6"/>
+                    <Border Background="#0D1128" CornerRadius="7"
+                            BorderBrush="#252B50" BorderThickness="1"
+                            Margin="0,0,0,16">
+                        <ComboBox ItemsSource="{Binding Roles}"
+                                  SelectedItem="{Binding FormRole}"
+                                  Background="Transparent"
+                                  Foreground="White"
+                                  BorderThickness="0"
+                                  Padding="10,8"
+                                  FontFamily="Segoe UI" FontSize="13"/>
+                    </Border>
+
+                    <!-- Active toggle -->
+                    <Border Background="#0D1128" CornerRadius="7"
+                            BorderBrush="#252B50" BorderThickness="1"
+                            Padding="12,10" Margin="0,0,0,24">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding FormIsActive}"
+                                      VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <StackPanel>
+                                <TextBlock Text="Active Account"
+                                           Foreground="White" FontSize="13"
+                                           FontFamily="Segoe UI" FontWeight="SemiBold"/>
+                                <TextBlock Text="User can log in to the system"
+                                           Foreground="#4A5080" FontSize="10"
+                                           FontFamily="Segoe UI"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Save button -->
+                    <Button Command="{Binding SaveUserCommand}"
+                            Height="44" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background"  Value="#E8001D"/>
+                                <Setter Property="Foreground"  Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    CornerRadius="8"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#C0001A"/>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Opacity" Value="0.4"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <TextBlock Text="SAVE USER" FontSize="13"
+                                   FontWeight="Bold" FontFamily="Segoe UI"/>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>
