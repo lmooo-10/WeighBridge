@@ -141,6 +141,28 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Container Tracking — Admin + Agent only -->
+                    <Button Command="{Binding NavigateCommand}" CommandParameter="containers"
+            Visibility="{Binding ShowConsole}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SideMenuButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveMenu}" Value="containers">
+                                        <Setter Property="Background"     Value="#252B50"/>
+                                        <Setter Property="BorderBrush"    Value="#E8001D"/>
+                                        <Setter Property="BorderThickness" Value="3,0,0,0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="⊡" FontSize="16" Foreground="#9DA3C0"
+                       Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Suivi Conteneurs"
+                       Style="{StaticResource SideMenuTextStyle}"/>
+                        </StackPanel>
+                    </Button>
+
                     <!-- Reports — Admin + Commercial only -->
                     <Button Command="{Binding NavigateCommand}" CommandParameter="reports"
                             Visibility="{Binding ShowReports}">
@@ -243,25 +265,31 @@
                             </Border>
                         </StackPanel>
                     </Button>
+                    
 
                     <!-- SYSTEM — Admin only -->
                     <TextBlock Text="SYSTEM" Style="{StaticResource SideCategoryStyle}"
-                               Visibility="{Binding ShowSettings}"/>
+           Visibility="{Binding ShowSettings}"/>
 
-                    <Button Style="{StaticResource SideMenuButtonStyle}"
-                            IsEnabled="False"
-                            Visibility="{Binding ShowSettings}">
+                    <!-- User Management — replaces the old disabled Settings button -->
+                    <Button Command="{Binding NavigateCommand}" CommandParameter="settings"
+        Visibility="{Binding ShowSettings}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SideMenuButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveMenu}" Value="settings">
+                                        <Setter Property="Background"      Value="#252B50"/>
+                                        <Setter Property="BorderBrush"     Value="#E8001D"/>
+                                        <Setter Property="BorderThickness"  Value="3,0,0,0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Images/weight-icon.png" Width="16"
-                                       Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Settings" Foreground="#3A4060"
-                                       FontSize="13" FontFamily="Segoe UI"
-                                       VerticalAlignment="Center"/>
-                            <Border CornerRadius="3" Background="#1E2448"
-                                    Padding="5,2" Margin="8,0,0,0">
-                                <TextBlock Text="SOON" Foreground="#4A5080"
-                                           FontSize="9" FontWeight="Bold"/>
-                            </Border>
+                            <TextBlock Text="&#xE7EE;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                   Foreground="#9DA3C0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="User Management"
+                   Style="{StaticResource SideMenuTextStyle}"/>
                         </StackPanel>
                     </Button>
 
