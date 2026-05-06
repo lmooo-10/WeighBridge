@@ -1,11 +1,10 @@
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using WeighBridge.Models;
+using WeighBridge.Repositories;
 using WeighBridge.Repositories.Interfaces;
-using WeighBridge.Repositories.Mock;
+using WeighBridge.Services;
 using WeighBridge.Services.Interfaces;
-using WeighBridge.Services.Mock;
-using WeighBridge.ViewModels;
 using WeighBridge.Views.Windows;
 
 //namespace WeighBridge
@@ -87,9 +86,9 @@ namespace WeighBridge
 
             if (USE_MOCK)
             {
-                services.AddSingleton<IWeighmentRepository, MockWeighmentRepository>();
-                services.AddSingleton<IZodiacService, MockZodiacService>();
-                services.AddSingleton<ITOSRepository, MockTOSRepository>();
+                services.AddSingleton<IWeighmentRepository, WeighmentRepository>();
+                services.AddSingleton<IZodiacService, ZodiacService>();
+                services.AddSingleton<ITOSRepository, TOSRepository>();
             }
 
             ServiceProvider = services.BuildServiceProvider();

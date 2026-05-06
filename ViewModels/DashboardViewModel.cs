@@ -145,7 +145,7 @@ namespace WeighBridge.ViewModels
         private async Task LoadChartsAsync()
         {
 
-         var stats = await _repo.GetByTypeAndDirectionAsync();
+            var stats = await _repo.GetByTypeAndDirectionAsync();
 
             ImportTEU = stats.Where(s => s.WeighmentType == "Import").Sum(s => s.Count);
             ExportTEU = stats.Where(s => s.WeighmentType == "Export").Sum(s => s.Count);
@@ -157,7 +157,7 @@ namespace WeighBridge.ViewModels
             int Get(string ctn, string dir) => stats
                 .FirstOrDefault(s => s.ContainerType == ctn
                                   && s.WeighmentType == dir)?.Count ?? 0;
-            
+
 
             Std20Import = Get("IMPU", "Import");
             Std20Export = Get("EXPU", "Export");

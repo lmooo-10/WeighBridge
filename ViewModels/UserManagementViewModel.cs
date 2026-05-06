@@ -6,12 +6,7 @@ namespace WeighBridge.ViewModels
     public class UserManagementViewModel : BaseViewModel
     {
         // ── User list ────────────────────────────────────────
-        private List<UserModel> _users = new()
-        {
-            new UserModel { OperatorId = "operator",   FullName = "Ahmed Kaci",   Initials = "AK", Role = UserRole.Agent,          IsActive = true  },
-            new UserModel { OperatorId = "commercial", FullName = "Sara Benali",  Initials = "SB", Role = UserRole.Commercial,     IsActive = true  },
-            new UserModel { OperatorId = "admin",      FullName = "Karim Oussad", Initials = "KO", Role = UserRole.Administrateur, IsActive = true  },
-        };
+        private List<UserModel> _users = new();
 
         public List<UserModel> Users
         {
@@ -42,8 +37,6 @@ namespace WeighBridge.ViewModels
         private UserRole _formRole = UserRole.Agent;
         private bool _formIsActive = true;
         private string? _message;
-        private bool _hasMessage;
-
 
         public string FormOperatorId { get => _formOperatorId; set => SetProperty(ref _formOperatorId, value); }
         public string FormFullName { get => _formFullName; set => SetProperty(ref _formFullName, value); }
@@ -54,7 +47,9 @@ namespace WeighBridge.ViewModels
         public bool HasMessage => !string.IsNullOrEmpty(_message);
         public int ActiveCount => Users.Count(u => u.IsActive);
         public int AdminCount => Users.Count(u => u.Role == UserRole.Administrateur);
+
         public event Action? RequestClearPassword;
+
         private bool _isFormVisible = false;
         public bool IsFormVisible
         {
@@ -77,12 +72,13 @@ namespace WeighBridge.ViewModels
 
         public UserManagementViewModel()
         {
-            SaveUserCommand = new RelayCommand(_ => SaveUser(), _ =>  !string.IsNullOrWhiteSpace(FormFullName)
-                                                                   && !string.IsNullOrWhiteSpace(FormOperatorId)
-                                                                   && (SelectedUser != null || !string.IsNullOrWhiteSpace(FormPassword)));
+            SaveUserCommand = new RelayCommand(_ => SaveUser(), _ =>
+                !string.IsNullOrWhiteSpace(FormFullName)
+             && !string.IsNullOrWhiteSpace(FormOperatorId)
+             && (SelectedUser != null || !string.IsNullOrWhiteSpace(FormPassword)));
+
             DeactivateCommand = new RelayCommand(_ => ToggleActive(), _ => SelectedUser != null);
             ResetPasswordCommand = new RelayCommand(_ => ResetPassword(), _ => SelectedUser != null);
-            // Show form when NEW USER is clicked
             NewUserCommand = new RelayCommand(_ => { ClearForm(); IsFormVisible = true; });
         }
 
@@ -91,7 +87,6 @@ namespace WeighBridge.ViewModels
         {
             if (SelectedUser != null)
             {
-                // Edit existing
                 SelectedUser.FullName = FormFullName;
                 SelectedUser.Role = FormRole;
                 SelectedUser.IsActive = FormIsActive;
@@ -99,7 +94,6 @@ namespace WeighBridge.ViewModels
             }
             else
             {
-                // Create new
                 var newUser = new UserModel
                 {
                     OperatorId = FormOperatorId,
@@ -130,7 +124,6 @@ namespace WeighBridge.ViewModels
         private void ResetPassword()
         {
             if (SelectedUser is null) return;
-            // In real app: call API. For now just show message.
             Message = $"Password reset link sent for '{SelectedUser.FullName}'.";
         }
 

@@ -30,13 +30,13 @@ namespace WeighBridge
         public static IWeighbridgeHardwareService HardwareService { get; private set; }
 
         // ── Static constructor — runs once at app startup ─────
-        static ServiceLocator()
-        {
+        //static ServiceLocator()
+        //{
             // ↓ MOCK — replace these with real implementations
-            WeighmentService = new MockWeighmentService();
-            VGMService = new MockVGMService();
-            HardwareService = new MockHardwareService();
-        }
+           // WeighmentService = new MockWeighmentService();
+           // VGMService = new MockVGMService();
+         //   HardwareService = new MockHardwareService();
+       // }
 
         // ── Optional: allow runtime re-registration ───────────
         public static void Register<T>(T instance)
