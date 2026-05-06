@@ -42,10 +42,15 @@ namespace WeighBridge.ViewModels
 
         // ── Selected container (for detail panel) ─────────────
         private ContainerTrackingModel? _selectedContainer;
+        public bool HasSelectedContainer => _selectedContainer != null;
         public ContainerTrackingModel? SelectedContainer
         {
             get => _selectedContainer;
-            set => SetProperty(ref _selectedContainer, value);
+            set
+            {
+                SetProperty(ref _selectedContainer, value);
+                OnPropertyChanged(nameof(HasSelectedContainer));
+            }
         }
 
         // ── Commands ──────────────────────────────────────────
@@ -213,6 +218,7 @@ namespace WeighBridge.ViewModels
 
     public class ContainerTrackingModel
     {
+
         public string ContainerNumber { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public string Direction { get; set; } = string.Empty;
