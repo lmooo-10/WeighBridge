@@ -9,7 +9,7 @@ namespace WeighBridge.Repositories
     public class WeighmentRepository : IWeighmentRepository
     {
         // TODO: inject your DbContext / HttpClient here
-        // private readonly AppDbContext _db;
+         //private readonly AppDbContext _db;
         // public WeighmentRepository(AppDbContext db) => _db = db;
 
         public Task<int> CountTodayAsync(string? type = null)
@@ -40,6 +40,6 @@ namespace WeighBridge.Repositories
         {
             // TODO: query real data source
             throw new NotImplementedException();
-        }
+       }
     }
 }

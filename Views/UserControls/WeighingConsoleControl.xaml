@@ -9,9 +9,9 @@
 
     <UserControl.Resources>
         <!-- ── Couleurs ── -->
-        <SolidColorBrush x:Key="PrimaryBrush"    Color="#1565C0"/>
+        <SolidColorBrush x:Key="PrimaryBrush"    Color="#E74C3C"/>
         <SolidColorBrush x:Key="AccentBrush"     Color="#0288D1"/>
-        <SolidColorBrush x:Key="SuccessBrush"    Color="#2E7D32"/>
+        <SolidColorBrush x:Key="SuccessBrush"    Color="#27AE60"/>
         <SolidColorBrush x:Key="WarningBrush"    Color="#F57F17"/>
         <SolidColorBrush x:Key="DangerBrush"     Color="#C62828"/>
         <SolidColorBrush x:Key="CardBrush"       Color="#FFFFFF"/>

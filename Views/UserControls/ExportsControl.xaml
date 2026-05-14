@@ -36,7 +36,7 @@
                     </StackPanel>
                 </Border>
                 <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2D3561">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                             <TextBlock Text="✅ " FontSize="14" Foreground="#8A8E9B"/>
@@ -48,7 +48,7 @@
                     </StackPanel>
                 </Border>
                 <Border CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2D3561">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                             <TextBlock Text="⊟ " FontSize="14" Foreground="#8A8E9B"/>
@@ -119,10 +119,10 @@
                             <CheckBox Content="Date/Time"          IsChecked="{Binding ColDateTime}"
                                       Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
                                       Margin="0,0,0,14"/>
-                            <CheckBox Content="Vehicle Number"     IsChecked="{Binding ColVehicleNumber}"
+                            <CheckBox Content="Vehicle"     IsChecked="{Binding ColVehicleNumber}"
                                       Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
                                       Margin="0,0,0,14"/>
-                            <CheckBox Content="Driver Name"        IsChecked="{Binding ColDriverName}"
+                            <CheckBox Content="Driver "        IsChecked="{Binding ColDriverName}"
                                       Foreground="#1A1F3A" FontFamily="Segoe UI" FontSize="13"
                                       Margin="0,0,0,14"/>
                             <CheckBox Content="Container Number"   IsChecked="{Binding ColContainerNumber}"

@@ -14,17 +14,13 @@ using System.Windows.Shapes;
 namespace WeighBridge.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for ContainerTrackingControl.xaml
+    /// Interaction logic for NotificationControl.xaml
     /// </summary>
-    public partial class ContainerTrackingControl : UserControl
+    public partial class NotificationControl : UserControl
     {
-        public ContainerTrackingControl()
+        public NotificationControl()
         {
             InitializeComponent();
-        }
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // nothing needed here — SelectedItem binding handles it
         }
     }
 }

@@ -91,11 +91,11 @@
                             <!-- TODAY'S OPS -->
                             <TextBlock Text="{Binding TodaysOps}" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding TodaysDelta, StringFormat='+{0:F1}%'}" Foreground="#2ECC71" />
+                                <TextBlock Text="{Binding TodaysDelta, StringFormat='+{0:F1}%'}" Foreground="#27AE60" />
                                 <TextBlock Text=" vs yesterday" Foreground="#8A8E9B" FontSize="12" FontFamily="Segoe UI"/>
                             </StackPanel>
                             <ProgressBar Value="60" Maximum="100" Height="3" Background="#F0F2F8"
-                                 Foreground="#fc539d" Margin="0,10,0,0" BorderThickness="0"/>
+                                 Foreground="#E74C3C" Margin="0,10,0,0" BorderThickness="0"/>
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0">
@@ -103,11 +103,11 @@
                             <!-- IMPORT -->
                             <TextBlock Text="{Binding ImportCount}" Style="{StaticResource StatNumberStyle}" Margin="0,6,0,4"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding ImportDelta, StringFormat='+{0:F1}%'}" Foreground="#2ECC71"/>
+                                <TextBlock Text="{Binding ImportDelta, StringFormat='+{0:F1}%'}" Foreground="#27AE60"/>
                                 <TextBlock Text=" vs yesterday" Foreground="#8A8E9B" FontSize="12" FontFamily="Segoe UI"/>
                             </StackPanel>
                             <ProgressBar Value="38" Maximum="100" Height="3" Background="#F0F2F8"
-                                 Foreground="#4bd9ed" Margin="0,10,0,0" BorderThickness="0"/>
+                                 Foreground="#27AE60" Margin="0,10,0,0" BorderThickness="0"/>
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0">
@@ -167,8 +167,8 @@
 
                                     <uc:DonutChart
                                         Value="{Binding ImportPct}"
-                                        PrimaryColor="#fc539d"
-                                        SecondaryColor="#4bd9ed"
+                                        PrimaryColor="#E74C3C"
+                                        SecondaryColor="#27AE60"
                                         ArcThickness="22"
                                         Width="150" Height="150"/>
 
@@ -190,13 +190,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="38"/>
                                     </Grid.ColumnDefinitions>
-                                    <Ellipse Width="10" Height="10" Fill="#fc539d" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <Ellipse Width="10" Height="10" Fill="#E74C3C" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="1" Text="Import" FontFamily="Segoe UI"
                                        FontSize="12" Foreground="#1A1F3A" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="2" Text="{Binding ImportTEU, StringFormat='{}{0} TEU '}" FontFamily="Segoe UI"
                                        FontSize="11" FontWeight="Bold" Foreground="#1A1F3A" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="3" Text="{Binding ImportPct, StringFormat='{}{0}%'}" FontFamily="Segoe UI"
-                                       FontSize="11" FontWeight="Bold" Foreground="#fc539d" VerticalAlignment="Center"/>
+                                       FontSize="11" FontWeight="Bold" Foreground="#E74C3C" VerticalAlignment="Center"/>
                                 </Grid>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -205,13 +205,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="38"/>
                                     </Grid.ColumnDefinitions>
-                                    <Ellipse Width="10" Height="10" Fill="#4bd9ed" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <Ellipse Width="10" Height="10" Fill="#27AE60" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="1" Text="Export" FontFamily="Segoe UI"
                                        FontSize="12" Foreground="#1A1F3A" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="2" Text="{Binding ExportTEU, StringFormat='{}{0} TEU '}" FontFamily="Segoe UI"
                                        FontSize="11" FontWeight="Bold" Foreground="#1A1F3A" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="3" Text="{Binding ExportPct, StringFormat='{}{0}%'}" FontFamily="Segoe UI"
-                                       FontSize="11" FontWeight="Bold" Foreground="#4bd9ed" VerticalAlignment="Center"/>
+                                       FontSize="11" FontWeight="Bold" Foreground="#27AE60" VerticalAlignment="Center"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -323,9 +323,9 @@
                                        FontSize="11" FontWeight="Bold" Foreground="#8A8E9B"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                    <Rectangle Width="12" Height="12" Fill="#fc539d" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
+                                    <Rectangle Width="12" Height="12" Fill="#E74C3C" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
                                     <TextBlock Text="Import" FontFamily="Segoe UI" FontSize="11" Foreground="#8A8E9B" Margin="0,0,14,0"/>
-                                    <Rectangle Width="12" Height="12" Fill="#4bd9ed" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
+                                    <Rectangle Width="12" Height="12" Fill="#27AE60" RadiusX="2" RadiusY="2" Margin="0,0,5,0"/>
                                     <TextBlock Text="Export" FontFamily="Segoe UI" FontSize="11" Foreground="#8A8E9B"/>
                                 </StackPanel>
                             </Grid>
@@ -354,16 +354,16 @@
                                                    FontWeight="SemiBold" Foreground="#1A1F3A"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <TextBlock Text="{Binding Std20Import, StringFormat='↑ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#fc539d" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#E74C3C" FontWeight="Bold"/>
                                             <TextBlock Text="{Binding Std20Export, StringFormat='  ↓ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </Grid>
 
                                     <!-- Import bar -->
                                     <Grid Grid.Row="1">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#fc539d"
+                                        <Border CornerRadius="3" Background="#E74C3C"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -377,7 +377,7 @@
                                     <!-- Export bar -->
                                     <Grid Grid.Row="3">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#4bd9ed"
+                                        <Border CornerRadius="3" Background="#27AE60"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -406,14 +406,14 @@
                                             <TextBlock Text="{Binding Std40Import, StringFormat='↑ {0}'}"
                                                        FontFamily="Segoe UI" FontSize="11" Foreground="#fc539d" FontWeight="Bold"/>
                                             <TextBlock Text="{Binding Std40Export, StringFormat='  ↓ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </Grid>
 
                                     <!-- Import bar -->
                                     <Grid Grid.Row="1">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#fc539d"
+                                        <Border CornerRadius="3" Background="#E74C3C"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -427,7 +427,7 @@
                                     <!-- Export bar -->
                                     <Grid Grid.Row="3">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#4bd9ed"
+                                        <Border CornerRadius="3" Background="#27AE60"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -454,16 +454,16 @@
                                                    FontWeight="SemiBold" Foreground="#1A1F3A"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <TextBlock Text="{Binding ReeferImport, StringFormat='↑ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#fc539d" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#E74C3C" FontWeight="Bold"/>
                                             <TextBlock Text="{Binding ReeferExport, StringFormat='  ↓ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </Grid>
 
                                     <!-- Import bar -->
                                     <Grid Grid.Row="1">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#fc539d"
+                                        <Border CornerRadius="3" Background="#E74C3C"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -477,7 +477,7 @@
                                     <!-- Export bar -->
                                     <Grid Grid.Row="3">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#4bd9ed"
+                                        <Border CornerRadius="3" Background="#27AE60"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -504,16 +504,16 @@
                                                    FontWeight="SemiBold" Foreground="#1A1F3A"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <TextBlock Text="{Binding DgrImport, StringFormat='↑ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#fc539d" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#E74C3C" FontWeight="Bold"/>
                                             <TextBlock Text="{Binding DgrExport, StringFormat='  ↓ {0}'}"
-                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                                       FontFamily="Segoe UI" FontSize="11" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </Grid>
 
                                     <!-- Import bar -->
                                     <Grid Grid.Row="1">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#fc539d"
+                                        <Border CornerRadius="3" Background="#E74C3C"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -527,7 +527,7 @@
                                     <!-- Export bar -->
                                     <Grid Grid.Row="3">
                                         <Border CornerRadius="3" Background="#F0F2F8"/>
-                                        <Border CornerRadius="3" Background="#4bd9ed"
+                                        <Border CornerRadius="3" Background="#27AE60"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource BarWidthConverter}" ConverterParameter="450">
@@ -557,8 +557,8 @@
                                         <TextBlock Text="{Binding Std20Total}" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
                                         <TextBlock Text="TEU total" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
                                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                                            <TextBlock Text="{Binding Std20Import, StringFormat='↑{0}  '}" FontFamily="Segoe UI" FontSize="10" Foreground="#fc539d" FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding Std20Export, StringFormat='↑{0}  '}"  FontFamily="Segoe UI" FontSize="10" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Std20Import, StringFormat='↑{0}  '}" FontFamily="Segoe UI" FontSize="10" Foreground="#E74C3C" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Std20Export, StringFormat='↑{0}  '}"  FontFamily="Segoe UI" FontSize="10" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
@@ -574,8 +574,8 @@
                                         <TextBlock Text="{Binding Std40Total}" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" Foreground="#1A1F3A"/>
                                         <TextBlock Text="TEU total" FontFamily="Segoe UI" FontSize="10" Foreground="#8A8E9B"/>
                                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                                            <TextBlock Text="{Binding Std40Import, StringFormat='↑{0}  '}" FontFamily="Segoe UI" FontSize="10" Foreground="#fc539d" FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding Std40Export, StringFormat='↑{0}  '}"  FontFamily="Segoe UI" FontSize="10" Foreground="#4bd9ed" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Std40Import, StringFormat='↑{0}  '}" FontFamily="Segoe UI" FontSize="10" Foreground="#E74C3C" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Std40Export, StringFormat='↑{0}  '}"  FontFamily="Segoe UI" FontSize="10" Foreground="#27AE60" FontWeight="Bold"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>

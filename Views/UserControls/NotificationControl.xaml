@@ -1,0 +1,256 @@
+﻿<UserControl x:Class="WeighBridge.Views.UserControls.NotificationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WeighBridge.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <!-- ── Checkbox style — light theme ── -->
+        <Style x:Key="NotifCheckBox" TargetType="CheckBox">
+            <Setter Property="Foreground"  Value="#4A5568"/>
+            <Setter Property="FontFamily"  Value="Segoe UI"/>
+            <Setter Property="FontSize"    Value="12"/>
+            <Setter Property="Margin"      Value="0,0,0,9"/>
+            <Setter Property="Cursor"      Value="Hand"/>
+        </Style>
+
+        <!-- ── Notification row ── -->
+        <Style x:Key="NotifRow" TargetType="Border">
+            <Setter Property="Background"      Value="Transparent"/>
+            <Setter Property="BorderBrush"     Value="#EDF2F7"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding"         Value="16,11"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolVis"/>
+
+    </UserControl.Resources>
+
+    <!-- Outer card with soft shadow -->
+    <Border Width="370" CornerRadius="14"
+            Background="White"
+            BorderBrush="#E2E8F0" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="28" ShadowDepth="4"
+                              Color="#000000" Opacity="0.12"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Header        -->
+                <RowDefinition Height="Auto"/>
+                <!-- Settings      -->
+                <RowDefinition Height="Auto"/>
+                <!-- Divider       -->
+                <RowDefinition Height="230"/>
+                <!-- List          -->
+                <RowDefinition Height="Auto"/>
+                <!-- Footer        -->
+            </Grid.RowDefinitions>
+
+            <!-- ══ ROW 0 — Header ══ -->
+            
+
+            <!-- ══ ROW 1 — Settings checkboxes ══ -->
+            
+
+            <!-- ══ ROW 2 — Divider ══ -->
+            <Grid Grid.Row="2" Margin="16,4,16,0" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Height="1" Background="#EDF2F7"
+                        VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="ALERTES ACTIVES"
+                           Foreground="#CBD5E0" FontFamily="Segoe UI"
+                           FontSize="9" FontWeight="Bold"
+                           Margin="8,0" VerticalAlignment="Center"/>
+                <Border Grid.Column="2" Height="1" Background="#EDF2F7"
+                        VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- ══ ROW 3 — Notification list ══ -->
+            <ScrollViewer Grid.Row="3"
+                          VerticalScrollBarVisibility="Hidden"
+                          Background="White">
+                <ItemsControl ItemsSource="{Binding FilteredNotifications}">
+
+                    <!-- Empty state -->
+                    <ItemsControl.Style>
+                        <Style TargetType="ItemsControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FilteredNotifications.Count}" Value="0">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <StackPanel HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,36">
+                                                    <Border Width="52" Height="52" CornerRadius="26"
+                                                            Background="#F7FAFC"
+                                                            HorizontalAlignment="Center"
+                                                            Margin="0,0,0,12">
+                                                        <TextBlock Text="🔕" FontSize="22"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <TextBlock Text="Aucune notification active"
+                                                               Foreground="#4A5568"
+                                                               FontFamily="Segoe UI" FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               HorizontalAlignment="Center"/>
+                                                    <TextBlock Text="Activez un filtre ci-dessus"
+                                                               Foreground="#A0AEC0"
+                                                               FontFamily="Segoe UI" FontSize="11"
+                                                               HorizontalAlignment="Center"
+                                                               Margin="0,4,0,0"/>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.Style>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border" BasedOn="{StaticResource NotifRow}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#F7FAFC"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="38"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Category icon circle -->
+                                    <Border Grid.Column="0"
+                                            Width="34" Height="34" CornerRadius="17"
+                                            VerticalAlignment="Top" Margin="0,1,0,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#FFF5F5"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Category}" Value="weight">
+                                                        <Setter Property="Background" Value="#FFFAF0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Category}" Value="vgm">
+                                                        <Setter Property="Background" Value="#F0FFF4"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock Text="{Binding Icon}" FontSize="15"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <!-- Text -->
+                                    <StackPanel Grid.Column="1" Margin="10,0,6,0">
+
+                                        <TextBlock Text="{Binding Title}"
+                                                   FontFamily="Segoe UI"
+                                                   FontSize="12" FontWeight="SemiBold">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="#1A202C"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsRead}" Value="True">
+                                                            <Setter Property="Foreground" Value="#A0AEC0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
+                                        <TextBlock Text="{Binding Description}"
+                                                   Foreground="#718096"
+                                                   FontFamily="Segoe UI" FontSize="11"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,2,0,5"/>
+
+                                        <!-- ── Unified time chip — single slate-blue color ── -->
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="🕐" FontSize="10"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Time}"
+                                                       Foreground="#667EEA"
+                                                       FontFamily="Segoe UI"
+                                                       FontSize="10" FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                    <!-- Unread dot -->
+                                    <Ellipse Grid.Column="2" Width="8" Height="8"
+                                             Fill="#E8001D"
+                                             VerticalAlignment="Top" Margin="0,7,0,0">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsRead}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- ══ ROW 4 — Footer ══ -->
+            <Border Grid.Row="4"
+                    CornerRadius="0,0,14,14"
+                    BorderBrush="#EDF2F7" BorderThickness="0,1,0,0"
+                    Padding="16,10">
+                <Grid>
+                    <Button HorizontalAlignment="Left"
+                            Command="{Binding MarkAllReadCommand}"
+                            Background="Transparent" BorderThickness="0"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="✓ " Foreground="#667EEA"
+                                       FontSize="11" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tout marquer lu"
+                                       Foreground="#667EEA" FontFamily="Segoe UI"
+                                       FontSize="11" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Right"
+                            Command="{Binding ClearAllCommand}" BorderThickness="0" Background="Transparent"
+                            Cursor="Hand">
+                        <TextBlock Text="Tout effacer"
+                                   Foreground="#9F0404" FontFamily="Segoe UI"
+                                   FontSize="11" FontWeight="SemiBold"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+</UserControl>

@@ -8,7 +8,7 @@ namespace WeighBridge.ViewModels
     {
         // ── Search / Filter ───────────────────────────────────
         private string _searchText = string.Empty;
-        private string _statusFilter = "All";
+        private string _selectedFilter = "All";
 
         public string SearchText
         {
@@ -16,25 +16,30 @@ namespace WeighBridge.ViewModels
             set { SetProperty(ref _searchText, value); ApplyFilter(); }
         }
 
-        public string StatusFilter
+        public string SelectedFilter
         {
-            get => _statusFilter;
-            set { SetProperty(ref _statusFilter, value); ApplyFilter(); }
+            get => _selectedFilter;
+            set { SetProperty(ref _selectedFilter, value); ApplyFilter(); }
         }
 
-        public List<string> StatusFilters { get; } = new()
-            { "All", "En attente", "Pesé", "Sorti" };
+        public ObservableCollection<string> StatusFilter { get; } = new()
+        {
+            "All",
+            "Pending",
+            "Weighed",
+            "Out"
+        };
 
         // ── KPI counters ──────────────────────────────────────
         private int _totalContainers;
-        private int _enAttenteCount;
-        private int _peseCount;
-        private int _sortiCount;
+        private int _pendingCount;
+        private int _weighedCount;
+        private int _exitedCount;
 
         public int TotalContainers { get => _totalContainers; set => SetProperty(ref _totalContainers, value); }
-        public int EnAttenteCount { get => _enAttenteCount; set => SetProperty(ref _enAttenteCount, value); }
-        public int PeseCount { get => _peseCount; set => SetProperty(ref _peseCount, value); }
-        public int SortiCount { get => _sortiCount; set => SetProperty(ref _sortiCount, value); }
+        public int EnAttenteCount { get => _pendingCount; set => SetProperty(ref _pendingCount, value); }
+        public int PeseCount { get => _weighedCount; set => SetProperty(ref _weighedCount, value); }
+        public int SortiCount { get => _exitedCount; set => SetProperty(ref _exitedCount, value); }
 
         // ── Collections ───────────────────────────────────────
         public ObservableCollection<ContainerTrackingModel> AllContainers { get; } = new();
@@ -67,7 +72,21 @@ namespace WeighBridge.ViewModels
             {
                 if (p is ContainerTrackingModel c) SelectedContainer = c;
             });
-
+            // ← Seed sample data so the grid isn't empty
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "MSCU1234567",
+                Type = "20' STD",
+                Direction = "Import",
+                Status = ContainerStatus.Pending,
+                VehicleNumber = "16-123-001",
+                DriverName = "Ali Benali",
+                EntryTime = DateTime.Now.AddHours(-2),
+                GrossWeight = 24.5,
+                TareWeight = 4.2,
+                Location = "Zone A - Ligne 3",
+                Remarks = ""
+            });
             ApplyFilter();
             UpdateKpis();
         }
@@ -84,8 +103,8 @@ namespace WeighBridge.ViewModels
                     || c.VehicleNumber.ToLower().Contains(q)
                     || c.DriverName.ToLower().Contains(q);
 
-                bool matchStatus = StatusFilter == "All"
-                    || c.StatusLabel == StatusFilter;
+                bool matchStatus = SelectedFilter == "ALL"
+                    || c.StatusLabel == SelectedFilter;
 
                 if (matchSearch && matchStatus)
                     FilteredContainers.Add(c);
@@ -97,9 +116,9 @@ namespace WeighBridge.ViewModels
         private void UpdateKpis()
         {
             TotalContainers = AllContainers.Count;
-            EnAttenteCount = AllContainers.Count(c => c.Status == ContainerStatus.EnAttente);
-            PeseCount = AllContainers.Count(c => c.Status == ContainerStatus.Pese);
-            SortiCount = AllContainers.Count(c => c.Status == ContainerStatus.Sorti);
+            EnAttenteCount = AllContainers.Count(c => c.Status == ContainerStatus.Pending);
+            PeseCount = AllContainers.Count(c => c.Status == ContainerStatus.Weighed);
+            SortiCount = AllContainers.Count(c => c.Status == ContainerStatus.Exited);
         }
 
         private void Refresh()
@@ -118,7 +137,7 @@ namespace WeighBridge.ViewModels
     }
 
     // ── Model ─────────────────────────────────────────────────
-    public enum ContainerStatus { EnAttente, Pese, Sorti }
+    public enum ContainerStatus { Pending, Weighed, Exited }
 
     public class ContainerTrackingModel
     {
@@ -140,17 +159,17 @@ namespace WeighBridge.ViewModels
         // ── Display helpers ───────────────────────────────────
         public string StatusLabel => Status switch
         {
-            ContainerStatus.EnAttente => "En attente",
-            ContainerStatus.Pese => "Pesé",
-            ContainerStatus.Sorti => "Sorti",
-            _ => "Inconnu"
+            ContainerStatus.Pending => "Pending",
+            ContainerStatus.Weighed => "Weighed",
+            ContainerStatus.Exited => "Out",
+            _ => "Unknown"
         };
 
         public string StatusBadgeColor => Status switch
         {
-            ContainerStatus.EnAttente => "#E67E22",
-            ContainerStatus.Pese => "#2ECC71",
-            ContainerStatus.Sorti => "#9DA3C0",
+            ContainerStatus.Pending => "#EF9F27",
+            ContainerStatus.Weighed => "#3B6D11",
+            ContainerStatus.Exited => "#9DA3C0",
             _ => "#8A8E9B"
         };
 

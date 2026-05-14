@@ -64,13 +64,7 @@
         </Style>
 
         <!-- Filter ComboBox -->
-        <Style x:Key="FilterCombo" TargetType="ComboBox">
-            <Setter Property="FontFamily"  Value="Segoe UI"/>
-            <Setter Property="FontSize"    Value="13"/>
-            <Setter Property="Height"      Value="36"/>
-            <Setter Property="Padding"     Value="8,0"/>
-            <Setter Property="BorderBrush" Value="#D0D5E0"/>
-        </Style>
+        
 
         <!-- Action button base -->
         <Style x:Key="ActionBtn" TargetType="Button">
@@ -116,7 +110,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="24">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Header -->
@@ -131,14 +125,10 @@
         <!-- ═══ ROW 0 — Header ═══ -->
         <Grid Grid.Row="0" Margin="0,0,0,20">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                    <Border Width="4" Height="28" Background="#E8001D"
-                            CornerRadius="2" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Suivi Conteneurs en Temps Réel"
-                               FontFamily="Segoe UI" FontSize="24" FontWeight="Bold"
-                               Foreground="#1A1F3A" VerticalAlignment="Center"/>
-                </StackPanel>
-                <TextBlock Text="Suivi conteneur en temps réel · Statut (en attente / pesé / sorti) · Historique par conteneur"
+                <TextBlock Text="Container Tracking"
+                               FontFamily="Segoe UI" FontSize="26" FontWeight="Bold"
+                               Foreground="#1A1F3A"/>
+                <TextBlock Text="Real-time container tracking · Status · History per container"
                            FontFamily="Segoe UI" FontSize="12" Foreground="#8A8E9B"
                            Margin="16,0,0,0"/>
             </StackPanel>
@@ -149,14 +139,14 @@
                         Command="{Binding RefreshCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="↻ " FontSize="14" VerticalAlignment="Center"/>
-                        <TextBlock Text="Actualiser" VerticalAlignment="Center"/>
+                        <TextBlock Text="Refresh" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource PrimaryBtn}"
                         Command="{Binding ExportCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="↓ " FontSize="14" VerticalAlignment="Center"/>
-                        <TextBlock Text="Exporter CSV" VerticalAlignment="Center"/>
+                        <TextBlock Text="Export CSV" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -166,7 +156,8 @@
         <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
 
             <!-- Total -->
-            <Border Style="{StaticResource TrackCard}" Margin="0,0,12,0" Padding="16,14">
+            <Border Style="{StaticResource TrackCard}" Margin="0,0,12,0" Padding="16,14"
+                    BorderThickness="0,0,0,3" BorderBrush="#1A1F3A">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                         <Border Width="8" Height="8" CornerRadius="4"
@@ -176,55 +167,55 @@
                     <TextBlock Text="{Binding TotalContainers}"
                                FontFamily="Segoe UI" FontSize="32" FontWeight="ExtraBold"
                                Foreground="#1A1F3A"/>
-                    <TextBlock Text="Conteneurs" Style="{StaticResource FieldLbl}"/>
+                    <TextBlock Text="Containers" Style="{StaticResource FieldLbl}"/>
                 </StackPanel>
             </Border>
 
             <!-- En attente -->
             <Border Style="{StaticResource TrackCard}" Margin="0,0,12,0" Padding="16,14"
-                    BorderThickness="0,0,0,3" BorderBrush="#E67E22">
+                    BorderThickness="0,0,0,3" BorderBrush="#EF9F27">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                         <Border Width="8" Height="8" CornerRadius="4"
-                                Background="#E67E22" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="EN ATTENTE" Style="{StaticResource SectionLabel}" Margin="0"/>
+                                Background="#EF9F27" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="PENDING" Style="{StaticResource SectionLabel}" Margin="0"/>
                     </StackPanel>
                     <TextBlock Text="{Binding EnAttenteCount}"
                                FontFamily="Segoe UI" FontSize="32" FontWeight="ExtraBold"
-                               Foreground="#E67E22"/>
-                    <TextBlock Text="En file / gate-in" Style="{StaticResource FieldLbl}"/>
+                               Foreground="#EF9F27"/>
+                    <TextBlock Text="Gate-in" Style="{StaticResource FieldLbl}"/>
                 </StackPanel>
             </Border>
 
             <!-- Pesé -->
             <Border Style="{StaticResource TrackCard}" Margin="0,0,12,0" Padding="16,14"
-                    BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                    BorderThickness="0,0,0,3" BorderBrush="#3B6D11">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                         <Border Width="8" Height="8" CornerRadius="4"
-                                Background="#2ECC71" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="PESÉ" Style="{StaticResource SectionLabel}" Margin="0"/>
+                                Background="#3B6D11" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="WEIGHED" Style="{StaticResource SectionLabel}" Margin="0"/>
                     </StackPanel>
                     <TextBlock Text="{Binding PeseCount}"
                                FontFamily="Segoe UI" FontSize="32" FontWeight="ExtraBold"
-                               Foreground="#2ECC71"/>
-                    <TextBlock Text="Pesée effectuée" Style="{StaticResource FieldLbl}"/>
+                               Foreground="#3B6D11"/>
+                    <TextBlock Text="Weighing performed" Style="{StaticResource FieldLbl}"/>
                 </StackPanel>
             </Border>
 
             <!-- Sorti -->
             <Border Style="{StaticResource TrackCard}" Padding="16,14"
-                    BorderThickness="0,0,0,3" BorderBrush="#9DA3C0">
+                    BorderThickness="0,0,0,3" BorderBrush="#7F87AD">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                         <Border Width="8" Height="8" CornerRadius="4"
-                                Background="#9DA3C0" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="SORTI" Style="{StaticResource SectionLabel}" Margin="0"/>
+                                Background="#7F87AD" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="OUT" Style="{StaticResource SectionLabel}" Margin="0"/>
                     </StackPanel>
                     <TextBlock Text="{Binding SortiCount}"
                                FontFamily="Segoe UI" FontSize="32" FontWeight="ExtraBold"
-                               Foreground="#9DA3C0"/>
-                    <TextBlock Text="Quittés la terminale" Style="{StaticResource FieldLbl}"/>
+                               Foreground="#7F87AD"/>
+                    <TextBlock Text="Left the terminal" Style="{StaticResource FieldLbl}"/>
                 </StackPanel>
             </Border>
         </UniformGrid>
@@ -242,13 +233,13 @@
 
                 <!-- Search box -->
                 <Grid Grid.Column="0">
-                    <TextBox Style="{StaticResource SearchBox}"
-             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-             x:Name="SearchBox"/>
-                    <TextBlock Text="🔍  Search by container, vehicle, driver..."
-               FontFamily="Segoe UI" FontSize="13"
-               Foreground="#B0B5C8" IsHitTestVisible="False"
-               VerticalAlignment="Center" Margin="12,0,0,0">
+                    <TextBox Style="{StaticResource DPTextBoxStyle}"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             x:Name="SearchBox"/>
+                    <TextBlock Text="Search by container, vehicle, driver..."
+                               FontFamily="Segoe UI" FontSize="13"
+                               Foreground="#B0B5C8" IsHitTestVisible="False"
+                               VerticalAlignment="Center" Margin="12,0,0,0">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -259,6 +250,9 @@
                                     <DataTrigger Binding="{Binding SearchText}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=SearchBox, Path=IsFocused}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBlock.Style>
@@ -267,59 +261,9 @@
                 <!-- Placeholder effect via tag -->
 
                 <!-- Status Filter -->
-                <ComboBox Grid.Column="2"
-          ItemsSource="{Binding StatusFilters}"
-          SelectedItem="{Binding StatusFilter}">
-                    <ComboBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="6"/>
-                        </Style>
-                    </ComboBox.Resources>
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="2,4">
-                                <Border Width="10" Height="10" CornerRadius="5"
-                        VerticalAlignment="Center" Margin="0,0,8,0">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="Background" Value="#1A1F3A"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding}" Value="En attente">
-                                                    <Setter Property="Background" Value="#E67E22"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding}" Value="Pesé">
-                                                    <Setter Property="Background" Value="#2ECC71"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding}" Value="Sorti">
-                                                    <Setter Property="Background" Value="#9DA3C0"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                                <TextBlock Text="{Binding}" VerticalAlignment="Center"
-                           FontFamily="Segoe UI" FontSize="12" FontWeight="SemiBold">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Foreground" Value="#1A1F3A"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding}" Value="En attente">
-                                                    <Setter Property="Foreground" Value="#E67E22"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding}" Value="Pesé">
-                                                    <Setter Property="Foreground" Value="#2ECC71"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding}" Value="Sorti">
-                                                    <Setter Property="Foreground" Value="#9DA3C0"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <ComboBox Grid.Column="2" Style="{StaticResource ContainerCombo}"
+                          ItemsSource="{Binding StatusFilter}"
+                          SelectedItem="{Binding SelectedFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Direction Filter placeholder label -->
 
@@ -359,16 +303,16 @@
                                         <ColumnDefinition Width="50"/>
                                     </Grid.ColumnDefinitions>
                                     <!-- Header cells -->
-                                    <TextBlock Grid.Column="0" Text="CONTENEUR" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="14,10"/>
-                                    <TextBlock Grid.Column="1" Text="TYPE"      Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="2" Text="SENS"      Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="3" Text="STATUT"    Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="4" Text="VÉHICULE"  Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="5" Text="CHAUFFEUR" Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="6" Text="BRUT (MT)" Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="7" Text="NET (MT)"  Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="8" Text="ENTRÉE"    Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="9" Text=""           Foreground="#9DA3C0" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="0" Text="CONTAINER" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="14,10"/>
+                                    <TextBlock Grid.Column="1" Text="TYPE"      Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="2" Text="SENS"      Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="3" Text="STATUS"    Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="4" Text="VEHICLE"  Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="5" Text="DRIVER" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="6" Text="GROSS (MT)" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="7" Text="NET (MT)"  Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="8" Text="ENTRY"    Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="9" Text=""           Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                 </Grid>
                             </Border>
 
@@ -386,7 +330,7 @@
                               RowHeight="50"
                               CanUserResizeColumns="False"
                               CanUserReorderColumns="False"
-                              SelectionMode="Single">
+                              SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
 
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow">
@@ -667,9 +611,9 @@
                                     Converter={StaticResource InverseBoolToVisibilityConverter}}">
                         <TextBlock Text="⊡" FontSize="40" Foreground="#D0D5E0"
                                    HorizontalAlignment="Center" Margin="0,0,0,12"/>
-                        <TextBlock Text="Sélectionnez un conteneur" FontFamily="Segoe UI"
+                        <TextBlock Text="Select a container" FontFamily="Segoe UI"
                                    FontSize="13" Foreground="#8A8E9B" HorizontalAlignment="Center"/>
-                        <TextBlock Text="pour voir le détail et l'historique"
+                        <TextBlock Text="to see the details and history"
                                    FontFamily="Segoe UI" FontSize="12"
                                    Foreground="#B0B5C8" HorizontalAlignment="Center"
                                    Margin="0,4,0,0"/>
@@ -742,7 +686,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                        <TextBlock Text="BRUT" FontFamily="Segoe UI" FontSize="10"
+                                        <TextBlock Text="GROSS" FontFamily="Segoe UI" FontSize="10"
                                                    FontWeight="Bold" Foreground="#8A8E9B"
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2}'}"
@@ -779,7 +723,7 @@
 
                             <!-- Operator info -->
                             <StackPanel Margin="16,14,16,0">
-                                <TextBlock Text="INFORMATIONS OPÉRATION" FontFamily="Segoe UI"
+                                <TextBlock Text="OPERATION INFORMATION" FontFamily="Segoe UI"
                                            FontSize="10" FontWeight="Bold"
                                            Foreground="#8A8E9B" Margin="0,0,0,10"/>
 
@@ -788,7 +732,7 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Véhicule"
+                                    <TextBlock Grid.Column="0" Text="Vehicle"
                                                Style="{StaticResource FieldLbl}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding VehicleNumber}"
                                                Style="{StaticResource FieldVal}"/>
@@ -798,7 +742,7 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Chauffeur"
+                                    <TextBlock Grid.Column="0" Text="Driver"
                                                Style="{StaticResource FieldLbl}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding DriverName}"
                                                Style="{StaticResource FieldVal}"/>
@@ -808,7 +752,7 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Emplacement"
+                                    <TextBlock Grid.Column="0" Text="Location"
                                                Style="{StaticResource FieldLbl}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding Location}"
                                                Style="{StaticResource FieldVal}"/>
@@ -818,7 +762,7 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Remarques"
+                                    <TextBlock Grid.Column="0" Text="Remarks"
                                                Style="{StaticResource FieldLbl}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding Remarks}"
                                                Style="{StaticResource FieldVal}"
@@ -831,7 +775,7 @@
 
                             <!-- ── Historique par conteneur ── -->
                             <StackPanel Margin="16,14,16,16">
-                                <TextBlock Text="HISTORIQUE PAR CONTENEUR" FontFamily="Segoe UI"
+                                <TextBlock Text="HISTORY BY CONTAINER" FontFamily="Segoe UI"
                                            FontSize="10" FontWeight="Bold"
                                            Foreground="#8A8E9B" Margin="0,0,0,12"/>
 
@@ -857,7 +801,7 @@
                                             HorizontalAlignment="Center"/>
 
                                     <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,0">
-                                        <TextBlock Text="Entrée Terminale" FontFamily="Segoe UI"
+                                        <TextBlock Text="Terminal Entry" FontFamily="Segoe UI"
                                                    FontSize="12" FontWeight="SemiBold"
                                                    Foreground="#1A1F3A"/>
                                         <TextBlock Text="{Binding EntryTime, StringFormat='dd MMM yyyy · HH:mm'}"
@@ -899,7 +843,7 @@
                                             HorizontalAlignment="Center"/>
 
                                     <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,0">
-                                        <TextBlock Text="Pesée Effectuée" FontFamily="Segoe UI"
+                                        <TextBlock Text="Weighing Done" FontFamily="Segoe UI"
                                                    FontSize="12" FontWeight="SemiBold">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
@@ -948,7 +892,7 @@
                                     </Border>
 
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                        <TextBlock Text="Sortie Terminale" FontFamily="Segoe UI"
+                                        <TextBlock Text="Exit Terminal" FontFamily="Segoe UI"
                                                    FontSize="12" FontWeight="SemiBold">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
@@ -972,7 +916,7 @@
                                         Padding="12,8" Margin="0,14,0,0"
                                         BorderBrush="#E4E8F0" BorderThickness="1">
                                     <Grid>
-                                        <TextBlock Text="Durée totale" FontFamily="Segoe UI"
+                                        <TextBlock Text="Total duration" FontFamily="Segoe UI"
                                                    FontSize="11" Foreground="#8A8E9B"
                                                    VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding DurationDisplay}"

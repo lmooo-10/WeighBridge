@@ -31,41 +31,23 @@
             </Grid>
 
             <!-- Stats cards -->
-            <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,20">
-                <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2D3561">
+            <UniformGrid Grid.Row="1" Columns="2" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Border Margin="0,0,40,0" CornerRadius="10" Padding="20" Width="350"
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#1A1F3A">
                     <StackPanel>
-                        <TextBlock Text="Total VGM Issued" Style="{StaticResource CardLabelStyle}"/>
+                        <TextBlock Text="Total VGM Issued" Style="{StaticResource CardLabelStyle}" Foreground="#1A1F3A"/>
                         <TextBlock Text="{Binding TotalVGMIssued}" Style="{StaticResource StatNumberStyle}"
                                    Margin="0,8,0,4"/>
                         <TextBlock Text="Certificates" Style="{StaticResource CardLabelStyle}"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
+                <Border CornerRadius="10" Padding="20" Width="350"
+                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#1A1F3A">
                     <StackPanel>
-                        <TextBlock Text="Today's VGM" Style="{StaticResource CardLabelStyle}"/>
+                        <TextBlock Text="Today's VGM" Style="{StaticResource CardLabelStyle}" Foreground="#1A1F3A"/>
                         <TextBlock Text="{Binding TodaysVGM}" Style="{StaticResource StatNumberStyle}"
                                    Margin="0,8,0,4"/>
                         <TextBlock Text="Issued today" Style="{StaticResource CardLabelStyle}"/>
-                    </StackPanel>
-                </Border>
-                <Border Margin="0,0,12,0" CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#2ECC71">
-                    <StackPanel>
-                        <TextBlock Text="Method 1" Style="{StaticResource CardLabelStyle}"/>
-                        <TextBlock Text="{Binding Method1Count}" Style="{StaticResource StatNumberStyle}"
-                                   Margin="0,8,0,4"/>
-                        <TextBlock Text="Weighbridge method" Style="{StaticResource CardLabelStyle}"/>
-                    </StackPanel>
-                </Border>
-                <Border CornerRadius="10" Padding="20"
-                        Background="White" BorderThickness="0,0,0,3" BorderBrush="#E67E22">
-                    <StackPanel>
-                        <TextBlock Text="Method 2" Style="{StaticResource CardLabelStyle}"/>
-                        <TextBlock Text="{Binding Method2Count}" Style="{StaticResource StatNumberStyle}"
-                                   Margin="0,8,0,4"/>
-                        <TextBlock Text="Calculation method" Style="{StaticResource CardLabelStyle}"/>
                     </StackPanel>
                 </Border>
             </UniformGrid>
