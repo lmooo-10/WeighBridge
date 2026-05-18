@@ -110,7 +110,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Header -->
@@ -153,7 +153,7 @@
         </Grid>
 
         <!-- ═══ ROW 1 — KPI Cards ═══ -->
-        <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
+        <UniformGrid Grid.Row="1" Columns="4" Margin="10,0,10,16">
 
             <!-- Total -->
             <Border Style="{StaticResource TrackCard}" Margin="0,0,12,0" Padding="16,14"
@@ -278,7 +278,6 @@
                 <ColumnDefinition Width="320"/>
             </Grid.ColumnDefinitions>
             <!-- ── LEFT: Container table ── -->
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <Grid>
                     <Border Grid.Column="0" Style="{StaticResource TrackCard}" Padding="0">
                         <Grid>
@@ -291,16 +290,16 @@
                             <Border Grid.Row="0" Background="#1A1F3A" CornerRadius="10,10,0,0" Padding="0,0,0,0">
                                 <Grid Margin="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="140"/>
-                                        <ColumnDefinition Width="90"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="110"/>
-                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="130"/>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="95"/>
+                                        <ColumnDefinition Width="105"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="65"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="36"/>
                                     </Grid.ColumnDefinitions>
                                     <!-- Header cells -->
                                     <TextBlock Grid.Column="0" Text="CONTAINER" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="14,10"/>
@@ -309,8 +308,8 @@
                                     <TextBlock Grid.Column="3" Text="STATUS"    Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                     <TextBlock Grid.Column="4" Text="VEHICLE"  Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                     <TextBlock Grid.Column="5" Text="DRIVER" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="6" Text="GROSS (MT)" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
-                                    <TextBlock Grid.Column="7" Text="NET (MT)"  Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="6" Text="GROSS" Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
+                                    <TextBlock Grid.Column="7" Text="NET"  Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                     <TextBlock Grid.Column="8" Text="ENTRY"    Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                     <TextBlock Grid.Column="9" Text=""           Foreground="White" FontFamily="Segoe UI" FontSize="11" FontWeight="Bold" Padding="4,10"/>
                                 </Grid>
@@ -318,19 +317,22 @@
 
                             <!-- DataGrid rows -->
                             <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding FilteredContainers}"
-                              SelectedItem="{Binding SelectedContainer}"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              HeadersVisibility="None"
-                              GridLinesVisibility="Horizontal"
-                              HorizontalGridLinesBrush="#F0F2F8"
-                              Background="White"
-                              BorderThickness="0"
-                              RowHeight="50"
-                              CanUserResizeColumns="False"
-                              CanUserReorderColumns="False"
-                              SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
+                                      ItemsSource="{Binding FilteredContainers}"
+                                      SelectedItem="{Binding SelectedContainer}"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      HeadersVisibility="None"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Hidden"
+                                      GridLinesVisibility="Horizontal"
+                                      HorizontalGridLinesBrush="#F0F2F8"
+                                      Background="White"
+                                      BorderThickness="0"
+                                      RowHeight="50"
+                                      CanUserResizeColumns="False"
+                                      CanUserReorderColumns="False"
+                                      SelectionMode="Single"
+                                      SelectionChanged="DataGrid_SelectionChanged">
 
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow">
@@ -368,24 +370,22 @@
 
                                 <DataGrid.Columns>
                                     <!-- Container Number -->
-                                    <DataGridTemplateColumn Width="140">
+                                <DataGridTemplateColumn Width="130">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel Margin="10,0,0,0">
-                                                    <TextBlock Text="{Binding ContainerNumber}"
-                                                       FontFamily="Consolas" FontSize="12"
-                                                       FontWeight="Bold" Foreground="#1A1F3A"/>
-                                                </StackPanel>
+                                                <TextBlock Text="{Binding ContainerNumber}"
+                                                           FontFamily="Consolas" FontSize="11"
+                                                           FontWeight="Bold" Foreground="#1A1F3A"
+                                                           Margin="10,0,0,0" VerticalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
                                     <!-- Type -->
-                                    <DataGridTemplateColumn Width="90">
+                                <DataGridTemplateColumn Width="75">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Border CornerRadius="4" Padding="6,3"
-                                                HorizontalAlignment="Left">
+                                                <Border CornerRadius="4" Padding="5,2" HorizontalAlignment="Left">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Setter Property="Background" Value="#F0F2F8"/>
@@ -403,19 +403,19 @@
                                                         </Style>
                                                     </Border.Style>
                                                     <TextBlock Text="{Binding Type}" FontFamily="Segoe UI"
-                                                       FontSize="10" FontWeight="Bold">
+                                                               FontSize="10" FontWeight="Bold">
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
-                                                                <Setter Property="Foreground" Value="#4A5080"/>
+                                                            <Setter Property="Foreground" Value="#754dfe"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding Type}" Value="20' REEF">
-                                                                        <Setter Property="Foreground" Value="#00838F"/>
+                                                                    <Setter Property="Foreground" Value="#00B4D8"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Type}" Value="20' DGR">
-                                                                        <Setter Property="Foreground" Value="#E65100"/>
+                                                                    <Setter Property="Foreground" Value="#ffbf4a"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Type}" Value="40' STD">
-                                                                        <Setter Property="Foreground" Value="#6A1B9A"/>
+                                                                    <Setter Property="Foreground" Value="#E8001D"/>
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -427,34 +427,32 @@
                                     </DataGridTemplateColumn>
 
                                     <!-- Direction -->
-                                    <DataGridTemplateColumn Width="80">
+                                <DataGridTemplateColumn Width="70">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock VerticalAlignment="Center" FontSize="14"
-                                                       Margin="0,0,4,0">
+                                                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,0,3,0">
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
-                                                                <Setter Property="Text" Value="↓"/>
-                                                                <Setter Property="Foreground" Value="#fc539d"/>
+                                                                <Setter Property="Text"       Value="↓"/>
+                                                            <Setter Property="Foreground" Value="#E74C3C"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding Direction}" Value="Export">
-                                                                        <Setter Property="Text" Value="↑"/>
-                                                                        <Setter Property="Foreground" Value="#4bd9ed"/>
+                                                                        <Setter Property="Text"       Value="↑"/>
+                                                                    <Setter Property="Foreground" Value="#27AE60"/>
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </TextBlock.Style>
                                                     </TextBlock>
-                                                    <TextBlock Text="{Binding Direction}"
-                                                       FontFamily="Segoe UI" FontSize="12"
-                                                       VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Direction}" FontFamily="Segoe UI" FontSize="11"
+                                                               VerticalAlignment="Center">
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
-                                                                <Setter Property="Foreground" Value="#fc539d"/>
+                                                            <Setter Property="Foreground" Value="#E74C3C"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding Direction}" Value="Export">
-                                                                        <Setter Property="Foreground" Value="#4bd9ed"/>
+                                                                    <Setter Property="Foreground" Value="#27AE60"/>
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -465,54 +463,51 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <!-- Status badge -->
-                                    <DataGridTemplateColumn Width="110">
+                                    <!-- Status badge — fixed DataTriggers to match new enum labels -->
+                                <DataGridTemplateColumn Width="95">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Border CornerRadius="20" Padding="10,4"
-                                                HorizontalAlignment="Left">
+                                                <Border CornerRadius="20" Padding="8,3" HorizontalAlignment="Left">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
-                                                            <Setter Property="Background" Value="#FFF3E0"/>
+                                                        <Setter Property="Background" Value="#FDF4E7"/>
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Status}" Value="Pese">
-                                                                    <Setter Property="Background" Value="#E8F8EF"/>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Weighed">
+                                                                <Setter Property="Background" Value="#F1FCE9"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Status}" Value="Sorti">
-                                                                    <Setter Property="Background" Value="#F0F2F8"/>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Exited">
+                                                                <Setter Property="Background" Value="#FFFFFF"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Ellipse Width="6" Height="6"
-                                                         VerticalAlignment="Center" Margin="0,0,5,0">
+                                                        <Ellipse Width="6" Height="6" VerticalAlignment="Center" Margin="0,0,5,0">
                                                             <Ellipse.Style>
                                                                 <Style TargetType="Ellipse">
-                                                                    <Setter Property="Fill" Value="#E67E22"/>
+                                                                <Setter Property="Fill" Value="#EF9F27"/>
                                                                     <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="Pese">
-                                                                            <Setter Property="Fill" Value="#2ECC71"/>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Weighed">
+                                                                        <Setter Property="Fill" Value="#3B6D11"/>
                                                                         </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="Sorti">
-                                                                            <Setter Property="Fill" Value="#9DA3C0"/>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Out">
+                                                                        <Setter Property="Fill" Value="#7F87AD"/>
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </Ellipse.Style>
                                                         </Ellipse>
-                                                        <TextBlock Text="{Binding StatusLabel}"
-                                                           FontFamily="Segoe UI" FontSize="11"
-                                                           FontWeight="SemiBold">
+                                                        <TextBlock Text="{Binding StatusLabel}" FontFamily="Segoe UI"
+                                                                   FontSize="11" FontWeight="SemiBold">
                                                             <TextBlock.Style>
                                                                 <Style TargetType="TextBlock">
-                                                                    <Setter Property="Foreground" Value="#E67E22"/>
+                                                                <Setter Property="Foreground" Value="#EF9F27"/>
                                                                     <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="Pese">
-                                                                            <Setter Property="Foreground" Value="#27AE60"/>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Weighed">
+                                                                        <Setter Property="Foreground" Value="#3B6D11"/>
                                                                         </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="Sorti">
-                                                                            <Setter Property="Foreground" Value="#8A8E9B"/>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Out">
+                                                                        <Setter Property="Foreground" Value="#7F87AD"/>
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
@@ -525,8 +520,8 @@
                                     </DataGridTemplateColumn>
 
                                     <!-- Vehicle -->
-                                    <DataGridTextColumn Binding="{Binding VehicleNumber}" Width="140">
-                                        <DataGridTextColumn.ElementStyle>
+                                    <DataGridTextColumn Binding="{Binding VehicleNumber}" Width="105">
+                                    <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="FontFamily" Value="Segoe UI"/>
                                                 <Setter Property="FontSize"   Value="12"/>
@@ -536,62 +531,58 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
-                                    <!-- Driver -->
+                                    <!-- Driver — takes remaining space -->
                                     <DataGridTextColumn Binding="{Binding DriverName}" Width="*">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="FontFamily" Value="Segoe UI"/>
                                                 <Setter Property="FontSize"   Value="12"/>
                                                 <Setter Property="Foreground" Value="#4A5080"/>
-                                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                            </Style>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
 
                                     <!-- Gross -->
-                                    <DataGridTemplateColumn Width="70">
+                                    <DataGridTemplateColumn Width="60">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2}'}"
-                                                   FontFamily="Segoe UI" FontSize="12"
-                                                   Foreground="#1A1F3A" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F1}'}"
+                                                           FontFamily="Segoe UI" FontSize="12" Foreground="#1A1F3A"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
                                     <!-- Net -->
-                                    <DataGridTemplateColumn Width="70">
+                                    <DataGridTemplateColumn Width="65">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding NetWeightDisplay}"
-                                                   FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"
-                                                   Foreground="#2ECC71" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
+                                                           FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"
+                                                           Foreground="#27AE60" VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
                                     <!-- Entry time -->
-                                    <DataGridTemplateColumn Width="80">
+                                <DataGridTemplateColumn Width="60">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding EntryTime, StringFormat='HH:mm'}"
-                                                   FontFamily="Consolas" FontSize="12"
-                                                   Foreground="#8A8E9B" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
+                                                           FontFamily="Consolas" FontSize="12" Foreground="#8A8E9B"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <!-- Detail arrow -->
-                                    <DataGridTemplateColumn Width="50">
+                                    <!-- Arrow -->
+                                <DataGridTemplateColumn Width="36">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="›" FontSize="20"
-                                                   Foreground="#C0C5D8"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
+                                                <TextBlock Text="›" FontSize="20" Foreground="#C0C5D8"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -600,8 +591,7 @@
                         </Grid>
                     </Border>
                 </Grid>
-            </ScrollViewer>
-            <!-- ── RIGHT: Container Detail Panel ── -->
+                <!-- ── RIGHT: Container Detail Panel ── -->
             <Border Grid.Column="2" Style="{StaticResource TrackCard}" Padding="0">
                 <!-- Empty state -->
                 <Grid>
@@ -620,7 +610,7 @@
                     </StackPanel>
 
                     <!-- Detail content: visible when a container IS selected -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto"  
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden"  
                                   Visibility="{Binding SelectedContainer,
                                       Converter={StaticResource NullToVisibilityConverter}}">
                         <StackPanel DataContext="{Binding SelectedContainer}">
@@ -646,10 +636,10 @@
                                             <Style TargetType="Border">
                                                 <Setter Property="Background" Value="#3D2A10"/>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Pese">
+                                                    <DataTrigger Binding="{Binding Status}" Value="Weighed">
                                                         <Setter Property="Background" Value="#0D2E1A"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Sorti">
+                                                    <DataTrigger Binding="{Binding Status}" Value="Out">
                                                         <Setter Property="Background" Value="#252B50"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -662,10 +652,10 @@
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Foreground" Value="#E67E22"/>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Status}" Value="Pese">
+                                                        <DataTrigger Binding="{Binding Status}" Value="Weighed">
                                                             <Setter Property="Foreground" Value="#2ECC71"/>
                                                         </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Status}" Value="Sorti">
+                                                        <DataTrigger Binding="{Binding Status}" Value="Out">
                                                             <Setter Property="Foreground" Value="#9DA3C0"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -689,33 +679,33 @@
                                         <TextBlock Text="GROSS" FontFamily="Segoe UI" FontSize="10"
                                                    FontWeight="Bold" Foreground="#8A8E9B"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2}'}"
+                                        <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2} T'}"
                                                    FontFamily="Segoe UI" FontSize="18"
                                                    FontWeight="Bold" Foreground="#1A1F3A"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="MT" FontFamily="Segoe UI" FontSize="10"
+                                        <TextBlock Text="" FontFamily="Segoe UI" FontSize="10"
                                                    Foreground="#8A8E9B" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                         <TextBlock Text="TARE" FontFamily="Segoe UI" FontSize="10"
                                                    FontWeight="Bold" Foreground="#8A8E9B"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding TareWeight, StringFormat='{}{0:F2}'}"
+                                        <TextBlock Text="{Binding TareWeight, StringFormat='{}{0:F2} T'}"
                                                    FontFamily="Segoe UI" FontSize="18"
                                                    FontWeight="Bold" Foreground="#1A1F3A"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="MT" FontFamily="Segoe UI" FontSize="10"
+                                        <TextBlock Text="" FontFamily="Segoe UI" FontSize="10"
                                                    Foreground="#8A8E9B" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                         <TextBlock Text="NET" FontFamily="Segoe UI" FontSize="10"
                                                    FontWeight="Bold" Foreground="#8A8E9B"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="{Binding NetWeightDisplay}"
+                                        <TextBlock Text="{Binding NetWeightDisplay, StringFormat='{}{0:F2} T'}"
                                                    FontFamily="Segoe UI" FontSize="18"
                                                    FontWeight="Bold" Foreground="#2ECC71"
                                                    HorizontalAlignment="Center"/>
-                                        <TextBlock Text="MT" FontFamily="Segoe UI" FontSize="10"
+                                        <TextBlock Text="" FontFamily="Segoe UI" FontSize="10"
                                                    Foreground="#8A8E9B" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>

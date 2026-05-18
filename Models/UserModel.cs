@@ -18,7 +18,7 @@ namespace WeighBridge.Models
         {
             UserRole.Administrateur => "Administrateur",
             UserRole.Commercial     => "Commercial",
-            _                       => "Agent Pesée"
+            _                       => "Agent"
         };
 
         public string ShiftDisplayName => Shift switch

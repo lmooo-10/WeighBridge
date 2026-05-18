@@ -4,7 +4,7 @@
             >
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Background="{StaticResource ContentBgBrush}" Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

@@ -86,9 +86,9 @@ namespace WeighBridge
 
             if (USE_MOCK)
             {
-                services.AddSingleton<IWeighmentRepository, WeighmentRepository>();
-                services.AddSingleton<IZodiacService, ZodiacService>();
-                services.AddSingleton<ITOSRepository, TOSRepository>();
+                services.AddSingleton<IWeighmentRepository, MockWeighmentRepository>();
+                services.AddSingleton<IZodiacService, MockZodiacService>();
+                services.AddSingleton<ITOSRepository, MockTOSRepository>();
             }
 
             ServiceProvider = services.BuildServiceProvider();

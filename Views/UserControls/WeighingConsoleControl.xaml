@@ -126,7 +126,7 @@
 
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <StackPanel Margin="20" MaxWidth="1200">
 
             <!-- ══════════════════════  HEADER  ══════════════════════ -->
@@ -347,17 +347,17 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                     <TextBlock Text="Gross Weight:" FontSize="10" Foreground="#546E7A" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2} MT'}"
+                                    <TextBlock Text="{Binding GrossWeight, StringFormat='{}{0:F2} '}"
                                            FontSize="13" FontWeight="Bold" Foreground="#4FC3F7" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                     <TextBlock Text="Tare Weight:" FontSize="10" Foreground="#546E7A" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding TareWeight, StringFormat='{}{0:F2} MT'}"
+                                    <TextBlock Text="{Binding TareWeight, StringFormat='{}{0:F2} '}"
                                            FontSize="13" FontWeight="Bold" Foreground="#4FC3F7" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                     <TextBlock Text="Net Weight:" FontSize="10" Foreground="#546E7A" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding NetWeight, StringFormat='{}{0:F2} MT'}"
+                                    <TextBlock Text="{Binding NetWeight, StringFormat='{}{0:F2} '}"
                                            FontSize="13" FontWeight="Bold" Foreground="#00E676" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
@@ -475,7 +475,7 @@
                                     <StackPanel>
                                         <TextBlock Text="③ TARE" FontSize="10" FontWeight="Bold"
                                                Foreground="#FFA726" HorizontalAlignment="Center"/>
-                                        <TextBlock Text="Vide" FontSize="9" Foreground="#90A4AE"
+                                        <TextBlock Text="Empty" FontSize="9" Foreground="#90A4AE"
                                                HorizontalAlignment="Center" Margin="0,2,0,4"/>
                                         <TextBlock Text="{Binding TareWeightN2, StringFormat='{}{0:F2}'}"
                                                FontSize="12" FontWeight="Bold" Foreground="#FFA726"
@@ -558,14 +558,14 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                     <TextBlock Text="Net CTN1:" FontSize="10" Foreground="#546E7A" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding NetWeightCtn1, StringFormat='{}{0:F2} MT'}"
+                                    <TextBlock Text="{Binding NetWeightCtn1, StringFormat='{}{0:F2} '}"
                                            FontSize="16" FontWeight="Bold" Foreground="#00E676" HorizontalAlignment="Center"/>
                                     <TextBlock Text="{Binding ContainerNumber}" FontSize="10"
                                            Foreground="#546E7A" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                     <TextBlock Text="Net CTN2:" FontSize="10" Foreground="#546E7A" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding NetWeightCtn2, StringFormat='{}{0:F2} MT'}"
+                                    <TextBlock Text="{Binding NetWeightCtn2, StringFormat='{}{0:F2} '}"
                                            FontSize="16" FontWeight="Bold" Foreground="#00E676" HorizontalAlignment="Center"/>
                                     <TextBlock Text="{Binding ContainerNumber2}" FontSize="10"
                                            Foreground="#546E7A" HorizontalAlignment="Center"/>

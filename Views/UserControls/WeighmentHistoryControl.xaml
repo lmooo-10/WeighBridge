@@ -81,7 +81,7 @@
                           ItemsSource="{Binding FilteredRecords}"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
-                          CanUserResizeColumns="True"
+                          CanUserResizeColumns="False"
                           RowHeight="46"
                           GridLinesVisibility="Horizontal"
                           HorizontalGridLinesBrush="{StaticResource BorderBrush}"
@@ -110,22 +110,38 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#F5F7FF"/>
                                 </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#9CEDE3"/>
+                                    <Setter Property="Foreground" Value="#000000"/>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </DataGrid.RowStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Ticket #"  Binding="{Binding TicketNumber}"  Width="130"/>
-                        <DataGridTextColumn Header="Date/Time" Binding="{Binding DateTime, StringFormat='dd MMM yyyy, HH:mm'}" Width="160"/>
-                        <DataGridTextColumn Header="Vehicle"   Binding="{Binding VehicleNumber}" Width="120"/>
-                        <DataGridTextColumn Header="Driver"    Binding="{Binding DriverName}"    Width="140"/>
-                        <DataGridTextColumn Header="Material"  Binding="{Binding Material}"      Width="160"/>
-                        <DataGridTextColumn Header="Gross"     Binding="{Binding GrossWeight, StringFormat='{}{0:F2} MT'}" Width="90"/>
-                        <DataGridTextColumn Header="Tare"      Binding="{Binding TareWeight,  StringFormat='{}{0:F2} MT'}" Width="90"/>
-                        <DataGridTextColumn Header="Net"       Binding="{Binding NetWeight,   StringFormat='{}{0:F2} MT'}" Width="90"/>
-                        <DataGridTextColumn Header="Type"      Binding="{Binding Type}"         Width="90"/>
-                        <DataGridTextColumn Header="Status"    Binding="{Binding Status}"        Width="100"/>
+                        <DataGridTextColumn Header="Ticket #"  Binding="{Binding TicketNumber}"  Width="120"/>
+                        <DataGridTextColumn Header="Date/Time" Binding="{Binding DateTime, StringFormat='dd MMM yyyy, HH:mm'}" Width="150"/>
+                        <DataGridTextColumn Header="Vehicle"   Binding="{Binding VehicleNumber}" Width="110"/>
+                        <DataGridTextColumn Header="Driver"    Binding="{Binding DriverName}"    Width="*"/>
+                        <DataGridTextColumn Header="Material"  Binding="{Binding Material}"      Width="*"/>
+                        <DataGridTextColumn Header="Gross"     Binding="{Binding GrossWeight, StringFormat='{}{0:F2} MT'}" Width="80"/>
+                        <DataGridTextColumn Header="Tare"      Binding="{Binding TareWeight,  StringFormat='{}{0:F2} MT'}" Width="80"/>
+                        <DataGridTextColumn Header="Net"       Binding="{Binding NetWeight,   StringFormat='{}{0:F2} MT'}" Width="80"/>
+                        <DataGridTextColumn Header="Type"      Binding="{Binding Type}"    Width="80"/>
+                        <DataGridTextColumn Header="Status"    Binding="{Binding Status}"  Width="90"/>
                     </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
             </Grid>
         </Border>

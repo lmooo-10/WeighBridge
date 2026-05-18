@@ -46,9 +46,9 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Ellipse Width="8" Height="8" Fill="#E67E22" Margin="0,0,6,0"
+                    <Ellipse Width="8" Height="8" Fill="#E74C3C" Margin="0,0,6,0"
                              VerticalAlignment="Center"/>
-                    <TextBlock Text="3 Vessels Inbound" Foreground="#9DA3C0"
+                    <TextBlock Text="3 Vessels Import" Foreground="#9DA3C0"
                                FontSize="12" FontFamily="Segoe UI" VerticalAlignment="Center"/>
                 </StackPanel>
 

@@ -66,6 +66,127 @@ namespace WeighBridge.ViewModels
         // ── Constructor ───────────────────────────────────────
         public ContainerTrackingViewModel()
         {
+            // ← Seed sample data
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "MSCU1234567",
+                Type = "20' STD",
+                Direction = "Import",
+                Status = ContainerStatus.Pending,
+                VehicleNumber = "16-123-001",
+                DriverName = "Ali Benali",
+                EntryTime = DateTime.Now.AddHours(-2),
+                GrossWeight = 0,
+                TareWeight = 0,
+                Location = "Gate-In WB1",
+                Remarks = "Awaiting weighing"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "DPWU7654321",
+                Type = "40' STD",
+                Direction = "Export",
+                Status = ContainerStatus.Weighed,
+                VehicleNumber = "09-ORA-4412",
+                DriverName = "Mohammed Ali",
+                EntryTime = DateTime.Now.AddHours(-4),
+                WeighTime = DateTime.Now.AddHours(-3),
+                GrossWeight = 32.0,
+                TareWeight = 9.0,
+                Location = "Export Zone - WB2",
+                Remarks = "VGM issued"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "MAEU9988776",
+                Type = "20' REEF",
+                Direction = "Import",
+                Status = ContainerStatus.Out,
+                VehicleNumber = "23-CON-7891",
+                DriverName = "Ahmed Hassan",
+                EntryTime = DateTime.Now.AddHours(-8),
+                WeighTime = DateTime.Now.AddHours(-7),
+                ExitTime = DateTime.Now.AddHours(-6),
+                GrossWeight = 28.5,
+                TareWeight = 8.5,
+                Location = "Terminal Exit",
+                Remarks = "Delivered to client"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "TCKU3344556",
+                Type = "20' DGR",
+                Direction = "Import",
+                Status = ContainerStatus.Pending,
+                VehicleNumber = "31-SET-1100",
+                DriverName = "Rashid Omar",
+                EntryTime = DateTime.Now.AddHours(-1),
+                GrossWeight = 0,
+                TareWeight = 0,
+                Location = "Gate-In WB1",
+                Remarks = "Dangerous goods - doc verification"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "HLXU5566778",
+                Type = "40' STD",
+                Direction = "Export",
+                Status = ContainerStatus.Weighed,
+                VehicleNumber = "07-ALG-9934",
+                DriverName = "Abdullah Fahad",
+                EntryTime = DateTime.Now.AddHours(-5),
+                WeighTime = DateTime.Now.AddHours(-4),
+                GrossWeight = 26.0,
+                TareWeight = 7.5,
+                Location = "Export Zone - WB2",
+                Remarks = "Awaiting embarkation"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "CMAU1122334",
+                Type = "20' STD",
+                Direction = "Import",
+                Status = ContainerStatus.Out,
+                VehicleNumber = "14-MED-5523",
+                DriverName = "Youcef Bouzid",
+                EntryTime = DateTime.Now.AddHours(-10),
+                WeighTime = DateTime.Now.AddHours(-9),
+                ExitTime = DateTime.Now.AddHours(-8),
+                GrossWeight = 19.0,
+                TareWeight = 6.8,
+                Location = "Terminal Exit",
+                Remarks = "Delivered"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "GESU4433221",
+                Type = "20' STD",
+                Direction = "Export",
+                Status = ContainerStatus.Pending,
+                VehicleNumber = "02-ALG-3310",
+                DriverName = "Karim Meziane",
+                EntryTime = DateTime.Now.AddMinutes(-30),
+                GrossWeight = 0,
+                TareWeight = 0,
+                Location = "Gate-In WB1",
+                Remarks = "Awaiting weighing"
+            });
+            AllContainers.Add(new ContainerTrackingModel
+            {
+                ContainerNumber = "OOLU8877665",
+                Type = "20' REEF",
+                Direction = "Export",
+                Status = ContainerStatus.Weighed,
+                VehicleNumber = "18-SET-6621",
+                DriverName = "Samir Hadj",
+                EntryTime = DateTime.Now.AddHours(-6),
+                WeighTime = DateTime.Now.AddHours(-5),
+                GrossWeight = 22.4,
+                TareWeight = 7.1,
+                Location = "Export Zone - WB2",
+                Remarks = "Reefer plugged in"
+            });
+
             RefreshCommand = new RelayCommand(_ => Refresh());
             ExportCommand = new RelayCommand(_ => Export());
             SelectContainerCommand = new RelayCommand(p =>
@@ -103,7 +224,7 @@ namespace WeighBridge.ViewModels
                     || c.VehicleNumber.ToLower().Contains(q)
                     || c.DriverName.ToLower().Contains(q);
 
-                bool matchStatus = SelectedFilter == "ALL"
+                bool matchStatus = SelectedFilter == "All"
                     || c.StatusLabel == SelectedFilter;
 
                 if (matchSearch && matchStatus)
@@ -118,7 +239,7 @@ namespace WeighBridge.ViewModels
             TotalContainers = AllContainers.Count;
             EnAttenteCount = AllContainers.Count(c => c.Status == ContainerStatus.Pending);
             PeseCount = AllContainers.Count(c => c.Status == ContainerStatus.Weighed);
-            SortiCount = AllContainers.Count(c => c.Status == ContainerStatus.Exited);
+            SortiCount = AllContainers.Count(c => c.Status == ContainerStatus.Out);
         }
 
         private void Refresh()
@@ -137,7 +258,7 @@ namespace WeighBridge.ViewModels
     }
 
     // ── Model ─────────────────────────────────────────────────
-    public enum ContainerStatus { Pending, Weighed, Exited }
+    public enum ContainerStatus { Pending, Weighed, Out }
 
     public class ContainerTrackingModel
     {
@@ -161,7 +282,7 @@ namespace WeighBridge.ViewModels
         {
             ContainerStatus.Pending => "Pending",
             ContainerStatus.Weighed => "Weighed",
-            ContainerStatus.Exited => "Out",
+            ContainerStatus.Out => "Out",
             _ => "Unknown"
         };
 
@@ -169,7 +290,7 @@ namespace WeighBridge.ViewModels
         {
             ContainerStatus.Pending => "#EF9F27",
             ContainerStatus.Weighed => "#3B6D11",
-            ContainerStatus.Exited => "#9DA3C0",
+            ContainerStatus.Out => "#9DA3C0",
             _ => "#8A8E9B"
         };
 
@@ -180,7 +301,7 @@ namespace WeighBridge.ViewModels
             ExitTime.HasValue ? ExitTime.Value.ToString("HH:mm") : "--:--";
 
         public string NetWeightDisplay =>
-            GrossWeight > 0 ? $"{NetWeight:F2} MT" : "—";
+            GrossWeight > 0 ? $"{NetWeight:F2}" : "—";
 
         public string DurationDisplay
         {

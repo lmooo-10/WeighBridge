@@ -38,6 +38,7 @@ namespace WeighBridge.ViewModels
         private bool _formIsActive = true;
         private string? _message;
 
+
         public string FormOperatorId { get => _formOperatorId; set => SetProperty(ref _formOperatorId, value); }
         public string FormFullName { get => _formFullName; set => SetProperty(ref _formFullName, value); }
         public string FormPassword { get => _formPassword; set => SetProperty(ref _formPassword, value); }
@@ -72,6 +73,17 @@ namespace WeighBridge.ViewModels
 
         public UserManagementViewModel()
         {
+            // ── Mock users ────────────────────────────────────────
+            _users = new List<UserModel>
+    {
+        new UserModel { OperatorId = "admin",      FullName = "Karim Oussad",   Initials = "KO", Role = UserRole.Administrateur, Shift = Shift.Morning,   WeighbridgeId = "WB-01", IsActive = true  },
+        new UserModel { OperatorId = "commercial", FullName = "Sara Benali",    Initials = "SB", Role = UserRole.Commercial,     Shift = Shift.Afternoon, WeighbridgeId = "WB-01", IsActive = true  },
+        new UserModel { OperatorId = "operator",   FullName = "Ahmed Kaci",     Initials = "AK", Role = UserRole.Agent,          Shift = Shift.Morning,   WeighbridgeId = "WB-01", IsActive = true  },
+        new UserModel { OperatorId = "op002",      FullName = "Youcef Brahimi", Initials = "YB", Role = UserRole.Agent,          Shift = Shift.Night,     WeighbridgeId = "WB-02", IsActive = true  },
+        new UserModel { OperatorId = "op003",      FullName = "Nadia Mansouri", Initials = "NM", Role = UserRole.Agent,          Shift = Shift.Afternoon, WeighbridgeId = "WB-01", IsActive = false },
+        new UserModel { OperatorId = "com002",     FullName = "Riad Tlemçani",  Initials = "RT", Role = UserRole.Commercial,     Shift = Shift.Morning,   WeighbridgeId = "WB-02", IsActive = true  },
+    };
+
             SaveUserCommand = new RelayCommand(_ => SaveUser(), _ =>
                 !string.IsNullOrWhiteSpace(FormFullName)
              && !string.IsNullOrWhiteSpace(FormOperatorId)
