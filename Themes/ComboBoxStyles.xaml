@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="ComboBox">
+    <Style x:Key="ComboType" TargetType="ComboBox">
         <Setter Property="Height"                   Value="34"/>
         <Setter Property="Padding"                  Value="8,0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -132,6 +132,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
         <!--ModernComboBox-->
     <Style x:Key="WeighHistoryCombo" TargetType="ComboBox">
         <Setter Property="Height"                   Value="34"/>
@@ -576,6 +577,148 @@
     </Style>
     
     <!--Combobox Role-->
+    <Style x:Key="ComboShift" TargetType="ComboBox">
+        <Setter Property="Height"                   Value="34"/>
+        <Setter Property="Padding"                  Value="8,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize"                 Value="13"/>
+        <Setter Property="Background"               Value="Transparent"/>
+        <Setter Property="BorderThickness"          Value="0"/>
+
+        <!-- ── ControlTemplate : removes the rectangle ── -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ContentPresenter Grid.Column="0"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,4,0"/>
+
+                        <TextBlock Grid.Column="1" Text="▾"
+                                   FontSize="12" Foreground="#78909C"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+
+                        <ToggleButton Grid.ColumnSpan="2"
+                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Opacity="0"/>
+
+                        <Popup Grid.ColumnSpan="2"
+                               IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               Focusable="False">
+                            <Border Background="White"
+                                    BorderBrush="#CFD8DC"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinWidth="{TemplateBinding ActualWidth}">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2"
+                                                      Color="#22000000" Opacity="0.15"/>
+                                </Border.Effect>
+                                <ScrollViewer>
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- ── ItemTemplate : pill badges ── -->
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Border CornerRadius="12" Padding="10,4" Margin="2,3">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="#EDEDF7"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding}" Value="Afternoon">
+                                        <Setter Property="Background" Value="#EDF1F8"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding}" Value="Night">
+                                        <Setter Property="Background" Value="#F3F2F2"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="7" Height="7" VerticalAlignment="Center" Margin="0,0,6,0">
+                                <Ellipse.Style>
+                                    <Style TargetType="Ellipse">
+                                        <Setter Property="Fill" Value="#3E3C90"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="Afternoon">
+                                                <Setter Property="Fill" Value="#8CA7D2"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="Night">
+                                                <Setter Property="Fill" Value="#282725"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Ellipse.Style>
+                            </Ellipse>
+                            <TextBlock Text="{Binding}" FontSize="12" FontWeight="SemiBold"
+                                       VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#3E3C90"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding}" Value="Afternoon">
+                                                <Setter Property="Foreground" Value="#8CA7D2"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding}" Value="Night">
+                                                <Setter Property="Foreground" Value="#282725"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border x:Name="ItemBorder" Background="Transparent" Padding="2,1">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ItemBorder" Property="Background" Value="#F0F0F0"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="ItemBorder" Property="Background" Value="#E0E0E0"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Combobox Shift-->
     <Style x:Key="ComboRole" TargetType="ComboBox">
         <Setter Property="Height"                   Value="34"/>
         <Setter Property="Padding"                  Value="8,0"/>

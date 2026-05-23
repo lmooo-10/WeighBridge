@@ -69,7 +69,7 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Height="1" Background="#EDF2F7"
                         VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="ALERTES ACTIVES"
+                <TextBlock Grid.Column="1" Text="ACTIVE ALERTS"
                            Foreground="#CBD5E0" FontFamily="Segoe UI"
                            FontSize="9" FontWeight="Bold"
                            Margin="8,0" VerticalAlignment="Center"/>
@@ -102,12 +102,12 @@
                                                                    HorizontalAlignment="Center"
                                                                    VerticalAlignment="Center"/>
                                                     </Border>
-                                                    <TextBlock Text="Aucune notification active"
+                                                    <TextBlock Text="No active notifications"
                                                                Foreground="#4A5568"
                                                                FontFamily="Segoe UI" FontSize="12"
                                                                FontWeight="SemiBold"
                                                                HorizontalAlignment="Center"/>
-                                                    <TextBlock Text="Activez un filtre ci-dessus"
+                                                    <TextBlock Text="Activate a filter above"
                                                                Foreground="#A0AEC0"
                                                                FontFamily="Segoe UI" FontSize="11"
                                                                HorizontalAlignment="Center"

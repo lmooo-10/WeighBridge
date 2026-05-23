@@ -475,7 +475,7 @@
                                                                 <DataTrigger Binding="{Binding Status}" Value="Weighed">
                                                                 <Setter Property="Background" Value="#F1FCE9"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Status}" Value="Exited">
+                                                                <DataTrigger Binding="{Binding Status}" Value="Out">
                                                                 <Setter Property="Background" Value="#FFFFFF"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
