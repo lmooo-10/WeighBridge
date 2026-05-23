@@ -238,9 +238,11 @@
 
                 <!-- Error message -->
                 <TextBlock x:Name="TbError"
-                           Foreground="#E8001D" FontSize="12"
-                           TextWrapping="Wrap" Margin="0,0,0,6"
-                           Visibility="Collapsed"/>
+           Text="{Binding ErrorMessage}"
+           Foreground="#E8001D" FontSize="12"
+           TextWrapping="Wrap" Margin="0,0,0,6"
+           Visibility="{Binding ErrorMessage, 
+               Converter={StaticResource NullToVisibilityConverter}}"/>
 
                 <!-- Login button -->
                 <Button Style="{StaticResource PrimaryButtonStyle}"

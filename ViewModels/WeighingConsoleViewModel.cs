@@ -23,6 +23,81 @@ namespace WeighBridge.ViewModels
         private double _netWeight = 0.0;
         private int _singleModeStep = 0;
 
+        // ── Authorization fields ──────────────────────────────────────────────────
+        private bool _isAuthorized = false;
+        private bool _isCheckingAuth = false;
+        private bool _isAuthStatusVisible = false;
+        private string _authStatus = string.Empty;
+        private string _clientName = string.Empty;
+        private string _companyName = string.Empty;
+        private string _bookingNumber = string.Empty;
+        private double _zodiacTareWeight = 0.0;
+
+        public bool IsAuthorized { get => _isAuthorized; set => SetProperty(ref _isAuthorized, value); }
+        public bool IsCheckingAuth { get => _isCheckingAuth; set => SetProperty(ref _isCheckingAuth, value); }
+        public bool IsAuthStatusVisible { get => _isAuthStatusVisible; set => SetProperty(ref _isAuthStatusVisible, value); }
+        public string AuthStatus { get => _authStatus; set => SetProperty(ref _authStatus, value); }
+        public string ClientName { get => _clientName; set => SetProperty(ref _clientName, value); }
+        public string CompanyName { get => _companyName; set => SetProperty(ref _companyName, value); }
+        public string BookingNumber { get => _bookingNumber; set => SetProperty(ref _bookingNumber, value); }
+        public double ZodiacTareWeight { get => _zodiacTareWeight; set => SetProperty(ref _zodiacTareWeight, value); }
+
+        public RelayCommand CheckAuthorizationCommand { get; }
+
+        private void CheckAuthorization()
+        {
+            IsCheckingAuth = true;
+            IsAuthStatusVisible = false;
+            IsAuthorized = false;
+
+            var timer = new System.Windows.Threading.DispatcherTimer
+            { Interval = TimeSpan.FromMilliseconds(800) };
+
+            timer.Tick += (_, _) =>
+            {
+                timer.Stop();
+                IsCheckingAuth = false;
+
+                // Mock — replace with real Zodiac call later
+                bool authorized = !string.IsNullOrWhiteSpace(ContainerNumber);
+
+                IsAuthorized = authorized;
+                IsAuthStatusVisible = true;
+
+                if (authorized)
+                {
+                    AuthStatus = $"Container {ContainerNumber} authorized";
+                    DriverName = "Ahmed Kaci";
+                    ClientName = "CEVITAL SPA";
+                    CompanyName = "CEVITAL SPA";
+                    BookingNumber = "BK-2025-0042";
+                    ZodiacTareWeight = 4200;
+                }
+                else
+                {
+                    AuthStatus = $"Container {ContainerNumber} not found";
+                    DriverName = string.Empty;
+                    ClientName = string.Empty;
+                    CompanyName = string.Empty;
+                }
+
+                CheckAuthorizationCommand.RaiseCanExecuteChanged();
+            };
+
+            timer.Start();
+        }
+
+        private void ResetAuthorization()
+        {
+            IsAuthorized = false;
+            IsAuthStatusVisible = false;
+            AuthStatus = string.Empty;
+            DriverName = string.Empty;
+            ClientName = string.Empty;
+            CompanyName = string.Empty;
+            BookingNumber = string.Empty;
+            ZodiacTareWeight = 0;
+        }
         //public double NetWeight { get => _netWeight; set => SetProperty(ref _netWeight, value); }
 
         // ── Dual-20ft fields ──────────────────────────────────────────────────
@@ -136,6 +211,10 @@ namespace WeighBridge.ViewModels
 
             PrintImportTicketCommand = new RelayCommand(_ => PrintTicket("Import"), _ => WeighmentType == "Import");
             PrintVGMCommand = new RelayCommand(_ => PrintTicket("Export"), _ => WeighmentType == "Export");
+
+            CheckAuthorizationCommand = new RelayCommand(
+    _ => CheckAuthorization(),
+    _ => !string.IsNullOrWhiteSpace(ContainerNumber) && !IsCheckingAuth);
         }
 
         // ── Single-weighment logic (unchanged) ────────────────────────────────

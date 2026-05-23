@@ -607,17 +607,19 @@
                    Foreground="{StaticResource TextPrimary}"
                    Margin="0,0,0,12"/>
 
-                            <!-- Ligne 1 : Type | N° Véhicule + Vérifier | Chauffeur -->
+                            <!-- ── Ligne 1 : Type | N° Container | N° Container 2 (dual) | Vérifier ── -->
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
                                     <ColumnDefinition Width="16"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="16"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Type — read only après autorisation -->
+                                <!-- Type -->
                                 <StackPanel Grid.Column="0">
                                     <TextBlock Text="Type" Style="{StaticResource FieldLabel}"/>
                                     <ComboBox Style="{StaticResource ComboType}" ItemsSource="{Binding WeighmentTypes}"
@@ -626,69 +628,56 @@
                               Converter={StaticResource InverseBool}}"/>
                                 </StackPanel>
 
-                                <!-- N° Véhicule + bouton Vérifier -->
+                                <!-- N° Container 1 -->
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="N° Véhicule*" Style="{StaticResource FieldLabel}"/>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="8"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0"
-                             Style="{StaticResource Field}"
-                             Text="{Binding VehicleNumber, 
-                                 UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding IsAuthorized, 
-                                Converter={StaticResource InverseBool}}"/>
-                                        <Button Grid.Column="2"
-                            Height="34" Padding="10,0"
-                            FontSize="12" FontWeight="SemiBold"
-                            Foreground="White" BorderThickness="0" Cursor="Hand"
-                            Command="{Binding CheckAuthorizationCommand}">
-                                            <Button.Style>
-                                                <Style TargetType="Button" BasedOn="{StaticResource BtnBase}">
-                                                    <Setter Property="Background" Value="#0288D1"/>
-                                                    <Setter Property="Content" Value="Vérifier"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsCheckingAuth}" Value="True">
-                                                            <Setter Property="Content" Value="…"/>
-                                                            <Setter Property="Background" Value="#78909C"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                    </Grid>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource FieldLabel}">
+                                                <Setter Property="Text" Value="N° Container*"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDual20Mode}" Value="True">
+                                                        <Setter Property="Text" Value="N° Container 1*"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBox Style="{StaticResource Field}"
+                         Text="{Binding ContainerNumber, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
 
-                                <!-- Chauffeur — rempli par Zodiac -->
-                                <StackPanel Grid.Column="4">
-                                    <TextBlock Text="Chauffeur*" Style="{StaticResource FieldLabel}"/>
+                                <!-- N° Container 2 (dual only) -->
+                                <StackPanel Grid.Column="4"
+                        Visibility="{Binding IsDual20Mode, 
+                            Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock Text="N° Container 2*" Style="{StaticResource FieldLabel}"/>
                                     <TextBox Style="{StaticResource Field}"
-                         Text="{Binding DriverName, UpdateSourceTrigger=PropertyChanged}"
-                         IsReadOnly="{Binding IsAuthorized}"/>
+                         Text="{Binding ContainerNumber2, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
-                            </Grid>
 
-                            <!-- Ligne Client -->
-                            <Grid Margin="0,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="16"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="Client*" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox Style="{StaticResource Field}"
-                         Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}"
-                         IsReadOnly="{Binding IsAuthorized}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock Text="Société" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox Style="{StaticResource Field}"
-                         Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}"
-                         IsReadOnly="True"/>
+                                <!-- Vérifier button -->
+                                <StackPanel Grid.Column="6" VerticalAlignment="Bottom">
+                                    <Button Height="34" Padding="14,0"
+                        FontSize="12" FontWeight="SemiBold"
+                        Foreground="White" BorderThickness="0" Cursor="Hand"
+                        Command="{Binding CheckAuthorizationCommand}">
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource BtnBase}">
+                                                <Setter Property="Background" Value="#0288D1"/>
+                                                <Setter Property="Content" Value="check"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCheckingAuth}" Value="True">
+                                                        <Setter Property="Content" Value="…"/>
+                                                        <Setter Property="Background" Value="#78909C"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsAuthorized}" Value="True">
+                                                        <Setter Property="Content" Value="✔ Authorized"/>
+                                                        <Setter Property="Background" Value="#27AE60"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
 
@@ -698,13 +687,13 @@
                     Converter={StaticResource BoolToVisibility}}">
                                 <Border.Style>
                                     <Style TargetType="Border">
-                                        <Setter Property="Background"    Value="#1B2E1B"/>
-                                        <Setter Property="BorderBrush"   Value="#4CAF50"/>
+                                        <Setter Property="Background"      Value="#1B2E1B"/>
+                                        <Setter Property="BorderBrush"     Value="#4CAF50"/>
                                         <Setter Property="BorderThickness" Value="1"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsAuthorized}" Value="False">
-                                                <Setter Property="Background"    Value="#2E1B1B"/>
-                                                <Setter Property="BorderBrush"   Value="#EF5350"/>
+                                                <Setter Property="Background"  Value="#2E1B1B"/>
+                                                <Setter Property="BorderBrush" Value="#EF5350"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -713,11 +702,11 @@
                                     <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" FontSize="14">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="✔"/>
+                                                <Setter Property="Text"       Value="✔"/>
                                                 <Setter Property="Foreground" Value="#4CAF50"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsAuthorized}" Value="False">
-                                                        <Setter Property="Text" Value="✖"/>
+                                                        <Setter Property="Text"       Value="✖"/>
                                                         <Setter Property="Foreground" Value="#EF5350"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -738,68 +727,47 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-
-                                    <!-- Infos Zodiac (visibles seulement si autorisé) -->
-                                    <StackPanel Orientation="Horizontal"
-                            Visibility="{Binding IsAuthorized, 
-                                Converter={StaticResource BoolToVisibility}}"
-                            Margin="20,0,0,0">
-                                        <TextBlock Text="{Binding CompanyName}" 
-                               Foreground="#90A4AE" FontSize="12"
-                               VerticalAlignment="Center" Margin="0,0,12,0"/>
-                                        <TextBlock Text="{Binding BookingNumber}" 
-                               Foreground="#90A4AE" FontSize="12"
-                               VerticalAlignment="Center" Margin="0,0,12,0"/>
-                                        <TextBlock Foreground="#90A4AE" FontSize="12" VerticalAlignment="Center">
-                        <Run Text="Tare Zodiac : "/>
-                        <Run Text="{Binding ZodiacTareWeight, StringFormat='{}{0:N0} kg'}"/>
-                                        </TextBlock>
-                                    </StackPanel>
                                 </StackPanel>
                             </Border>
 
-                            <!-- Ligne 2 : Conteneur | Conteneur2 | Material -->
+                            <!-- ── Ligne 2 : N° Véhicule | Chauffeur ── -->
                             <Grid Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="16"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="16"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock>
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock" BasedOn="{StaticResource FieldLabel}">
-                                                <Setter Property="Text" Value="N° Container*"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsDual20Mode}" Value="True">
-                                                        <Setter Property="Text" Value="N° Conteneur 1"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
+                                    <TextBlock Text="N° Vehicle*" Style="{StaticResource FieldLabel}"/>
                                     <TextBox Style="{StaticResource Field}"
-                         Text="{Binding ContainerNumber, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding VehicleNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="Driver*" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox Style="{StaticResource Field}"
+                         Text="{Binding DriverName, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="{Binding IsAuthorized}"/>
                                 </StackPanel>
+                            </Grid>
 
-                                <StackPanel Grid.Column="2"
-                        Visibility="{Binding IsDual20Mode, 
-                            Converter={StaticResource BoolToVisibility}}">
-                                    <TextBlock Text="N° Container 2*" Style="{StaticResource FieldLabel}"/>
-                                    <TextBox Style="{StaticResource Field}"
-                         Text="{Binding ContainerNumber2, UpdateSourceTrigger=PropertyChanged}"/>
-                                </StackPanel>
+                            <!-- ── Ligne 3 : Client ── -->
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="4">
-                                    <TextBlock Text="Material*" Style="{StaticResource FieldLabel}"/>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="Client*" Style="{StaticResource FieldLabel}"/>
                                     <TextBox Style="{StaticResource Field}"
-                         Text="{Binding Material, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}"
+                         IsReadOnly="{Binding IsAuthorized}"/>
                                 </StackPanel>
                             </Grid>
+
                         </StackPanel>
                     </Border>
 

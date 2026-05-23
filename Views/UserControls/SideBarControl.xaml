@@ -207,64 +207,7 @@
                         </StackPanel>
                     </Button>
 
-                    <!-- NETWORK -->
-                    <TextBlock Text="NETWORK" Style="{StaticResource SideCategoryStyle}"/>
-
-                    <!-- Exports — Admin + Commercial only -->
-                    <Button Command="{Binding NavigateCommand}" CommandParameter="exports"
-                            Visibility="{Binding ShowExports}">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource SideMenuButtonStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ActiveMenu}" Value="exports">
-                                        <Setter Property="Background"      Value="#252B50"/>
-                                        <Setter Property="BorderBrush"     Value="#E8001D"/>
-                                        <Setter Property="BorderThickness"  Value="3,0,0,0"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="↓" FontSize="16" Foreground="#9DA3C0"
-                                       Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Exports"
-                                       Style="{StaticResource SideMenuTextStyle}"/>
-                        </StackPanel>
-                    </Button>
-
-                    <!-- Terminal Network — Admin only (SOON) -->
-                    <Button Style="{StaticResource SideMenuButtonStyle}"
-                            IsEnabled="False"
-                            Visibility="{Binding ShowTerminalNetwork}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🌐" FontSize="14" Foreground="Black"
-                                       Margin="0,0,5,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Terminal Network" Foreground="#3A4060"
-                                       FontSize="12" FontFamily="Segoe UI"
-                                       VerticalAlignment="Center"/>
-                            <Border CornerRadius="3" Background="#1E2448"
-                                    Padding="4,2" Margin="5,0,0,0">
-                                <TextBlock Text="SOON" Foreground="#4A5080"
-                                           FontSize="9" FontWeight="Bold"/>
-                            </Border>
-                        </StackPanel>
-                    </Button>
-
-                    <!-- Vessel Schedule — ALL roles (SOON) -->
-                    <Button Style="{StaticResource SideMenuButtonStyle}" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🚢" FontSize="14" Foreground="Black"
-                                       Margin="0,0,5,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Vessel Schedule" Foreground="#3A4060"
-                                       FontSize="12" FontFamily="Segoe UI"
-                                       VerticalAlignment="Center"/>
-                            <Border CornerRadius="3" Background="#1E2448"
-                                    Padding="4,2" Margin="5,0,0,0">
-                                <TextBlock Text="SOON" Foreground="#4A5080"
-                                           FontSize="9" FontWeight="Bold"/>
-                            </Border>
-                        </StackPanel>
-                    </Button>
+                   
                     
 
                     <!-- SYSTEM — Admin only -->

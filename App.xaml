@@ -20,6 +20,7 @@
             <helpers:NullToVisibilityConverter        x:Key="NullToVisibilityConverter"/>
             <helpers:BoolToVisibilityConverter        x:Key="BoolToVisibilityConverter"/>
             <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+            <helpers:InverseBoolConverter x:Key="InverseBool"/>
             <SolidColorBrush x:Key="PrimaryTextBrush" Color="#1A1F3A"/>
             <Style x:Key="SecondaryButtonStyle" TargetType="Button">
                 <Setter Property="Background"   Value="#E8EAF0"/>

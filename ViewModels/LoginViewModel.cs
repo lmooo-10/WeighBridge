@@ -86,7 +86,9 @@ namespace WeighBridge.ViewModels
         // ── Logic ───────────────────────────────────────────────
         private void ExecuteLogin(object? _)
         {
-            ErrorMessage = null;
+            // Force clear first — even if already null
+            _errorMessage = null;
+            OnPropertyChanged(nameof(ErrorMessage));
 
             if (string.IsNullOrWhiteSpace(OperatorId) || string.IsNullOrWhiteSpace(Password))
             {
@@ -94,10 +96,9 @@ namespace WeighBridge.ViewModels
                 return;
             }
 
-            // Demo credentials
-            bool valid = (OperatorId == "operator"      && Password == "operator123")  ||
-                         (OperatorId == "commercial"    && Password == "commercial123") ||
-                         (OperatorId == "admin"         && Password == "admin123");
+            bool valid = (OperatorId == "operator" && Password == "operator123") ||
+                         (OperatorId == "commercial" && Password == "commercial123") ||
+                         (OperatorId == "admin" && Password == "admin123");
 
             if (!valid)
             {

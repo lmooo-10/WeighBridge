@@ -69,19 +69,14 @@ namespace WeighBridge.Views.Windows
                 };
 
                 if (_creds.TryGetValue(_selectedRole, out var c))
-                    TbDemoHint.Text = c.Hint;
+                    vm.ErrorMessage = null;
             }
-
-            TbError.Visibility = Visibility.Collapsed;
+            ;
         }
 
 
 
-        private void ShowError(string msg)
-        {
-            TbError.Text       = msg;
-            TbError.Visibility = Visibility.Visible;
-        }
+        
 
         private Shift GetShift() => CbShift.SelectedIndex switch
         {
